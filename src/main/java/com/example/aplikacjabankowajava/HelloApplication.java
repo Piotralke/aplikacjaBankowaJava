@@ -24,6 +24,7 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("glownyPanel.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 600, 400);
         Switcher.addScene(2,scene2,primaryStage);
+
     }
 
     public static void main(String[] args) {
