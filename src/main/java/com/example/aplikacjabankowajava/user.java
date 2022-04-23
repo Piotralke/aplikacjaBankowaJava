@@ -15,8 +15,8 @@ public class user implements Serializable {
     //private static final long serialVersionUID = ;
     private String name;
     private String surname;
-    private transient Long login;
-    private String password;
+    private Long login;
+    private transient String password;
     private boolean adminAccess;
     private Float balance;
     private Long accNumber;
@@ -39,13 +39,16 @@ public class user implements Serializable {
         this.currency = countryMap.getCurrency(country);
     }
     public void writeObject(ObjectOutputStream oos) throws Exception {
-        oos.defaultWriteObject();
-        String encryptPassword = encryptData(login.toString());
-        oos.writeObject(encryptPassword);
+      //  oos.defaultWriteObject();
+        //String encryptPassword = encryptData(password.toString());
+        String epass =  "123" + password;
+        oos.writeObject(epass);
     }
     public void readObject(ObjectInputStream ois) throws Exception{
-        ois.defaultReadObject();
-        this.login = Long.valueOf(Objects.requireNonNull(decryptData((String)ois.readObject())));
+      //  ois.defaultReadObject();
+     //   this.password = String.valueOf(Objects.requireNonNull(decryptData((String)ois.readObject())));
+        String epass = (String)ois.readObject();
+        this.password = epass.substring(3);
     }
     public void setName(String name){
         this.name = name;

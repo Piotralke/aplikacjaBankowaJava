@@ -35,11 +35,10 @@ public class HelloController {
     protected void onHelloButtonClick() throws Exception {
         FileInputStream fileInputStream = new FileInputStream("data.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        user temp = new user();
-        temp.readObject(objectInputStream);
+        user temp = (user)objectInputStream.readObject();
         Long loginT = Long.valueOf(loginText.getText());
         String passT = passwordText.getText();
-        errorLabel.setText(temp.getPassword());
+        errorLabel.setText(temp.getPassword() + temp.getLogin());
         if(loginT.equals(temp.getLogin())&&passT.equals(temp.getPassword()))
         {
             Switcher.showScene(2);
