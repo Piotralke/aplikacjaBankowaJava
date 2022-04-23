@@ -16,7 +16,7 @@
       <children>
             <ImageView layoutX="530.0" layoutY="8.0">
                <image>
-                  <Image url="@../../../../../../../logo.png" />
+                  <Image url="@logo.png" />
                </image>
             </ImageView>
             <Label layoutX="40.0" layoutY="43.0" text="Dostępne środki">
