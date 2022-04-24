@@ -41,7 +41,7 @@ public class user implements Serializable {
     public void writeObject(ObjectOutputStream oos) throws Exception {
         oos.defaultWriteObject();
         String encryptPassword = encryptData(password.toString());
-       // String epass =  "123" + password;
+        // String epass =  "123" + password;
         oos.writeObject(encryptPassword);
     }
     public void readObject(ObjectInputStream ois) throws Exception{
@@ -49,6 +49,15 @@ public class user implements Serializable {
         this.password = (Objects.requireNonNull(decryptData((String)ois.readObject())));
         System.out.println(password);
         String epass = (String)ois.readObject();
+    }
+    private Long generate(String country, Long login){
+        //CHECK DIGITS(2)-BANK NUMBER(8)- LOGIN(8)- ACC NUMBER(6) - COUNTRY(2)
+        Random rand = new Random();
+        Long temp = 100000l+rand.nextLong(899999l);
+
+        StringBuilder number = new StringBuilder().append(login).append(temp).append(countryMap.getCountryID(country));
+        Long output = Long.valueOf(number.toString());
+        return output;
     }
     public void setName(String name){
         this.name = name;
@@ -65,7 +74,7 @@ public class user implements Serializable {
     public void setLogin(Long login){
         this.login = login;
     }
-    public String getLogin(){
+    public Long getLogin(){
         return login;
     }
     public void setPassword(String password)
