@@ -39,16 +39,16 @@ public class user implements Serializable {
         this.currency = countryMap.getCurrency(country);
     }
     public void writeObject(ObjectOutputStream oos) throws Exception {
-      //  oos.defaultWriteObject();
-        //String encryptPassword = encryptData(password.toString());
-        String epass =  "123" + password;
-        oos.writeObject(epass);
+        oos.defaultWriteObject();
+        String encryptPassword = encryptData(password.toString());
+       // String epass =  "123" + password;
+        oos.writeObject(encryptPassword);
     }
     public void readObject(ObjectInputStream ois) throws Exception{
-      //  ois.defaultReadObject();
-     //   this.password = String.valueOf(Objects.requireNonNull(decryptData((String)ois.readObject())));
+        ois.defaultReadObject();
+        this.password = (Objects.requireNonNull(decryptData((String)ois.readObject())));
+        System.out.println(password);
         String epass = (String)ois.readObject();
-        this.password = epass.substring(3);
     }
     public void setName(String name){
         this.name = name;

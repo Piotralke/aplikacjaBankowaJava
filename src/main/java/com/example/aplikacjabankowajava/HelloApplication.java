@@ -16,6 +16,7 @@ import com.example.aplikacjabankowajava.AESEncryption.*;
 
 import static com.example.aplikacjabankowajava.AESEncryption.encryptData;
 
+
 public class HelloApplication extends Application {
 
     @Override
