@@ -33,7 +33,14 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("panelUser.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 600, 400);
         Switcher.addScene(2,scene2,primaryStage);
-
+        user admin = new user("admin","admin",12345678l,"admin",true,"Poland");
+        admin.setBalance(1000.0f);
+        final FileOutputStream fileOutputStream = new FileOutputStream("data.txt");
+        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(admin);
+        objectOutputStream.flush();
+        objectOutputStream.close();
+        fileOutputStream.close();
     }
 
     public static void main(String[] args) {
