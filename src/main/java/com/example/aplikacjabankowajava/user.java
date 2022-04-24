@@ -5,7 +5,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Random;
-import com.example.aplikacjabankowajava.countryHashMap.*;
 
 import static com.example.aplikacjabankowajava.AESEncryption.decryptData;
 import static com.example.aplikacjabankowajava.AESEncryption.encryptData;
@@ -38,22 +37,19 @@ public class user implements Serializable {
         this.country = country;
         this.currency = countryMap.getCurrency(country);
     }
-    public void writeObject(ObjectOutputStream oos) throws Exception {
+    private void writeObject(ObjectOutputStream oos) throws Exception {
         oos.defaultWriteObject();
-        String encryptPassword = encryptData(password.toString());
-        // String epass =  "123" + password;
+        String encryptPassword = encryptData(password);
         oos.writeObject(encryptPassword);
     }
-    public void readObject(ObjectInputStream ois) throws Exception{
+    private void readObject(ObjectInputStream ois) throws Exception{
         ois.defaultReadObject();
         this.password = (Objects.requireNonNull(decryptData((String)ois.readObject())));
-        System.out.println(password);
-        String epass = (String)ois.readObject();
     }
     private Long generate(String country, Long login){
-        //CHECK DIGITS(2)-BANK NUMBER(8)- LOGIN(8)- ACC NUMBER(6) - COUNTRY(2)
+        //BANK NUMBER(8)- LOGIN(8)- ACC NUMBER(4) - COUNTRY(2)
         Random rand = new Random();
-        Long temp = 100000l+rand.nextLong(899999l);
+        Long temp = 1000l+rand.nextLong(8999l);
 
         StringBuilder number = new StringBuilder().append(login).append(temp).append(countryMap.getCountryID(country));
         Long output = Long.valueOf(number.toString());
@@ -71,6 +67,11 @@ public class user implements Serializable {
     public String getSurname(){
         return surname;
     }
+
+    public String getCurrency() {
+        return currency;
+    }
+    public void setCurrency(String currency) { this.currency = currency; }
     public void setLogin(Long login){
         this.login = login;
     }
@@ -81,32 +82,31 @@ public class user implements Serializable {
     {
         this.password = password;
     }
-
     public String getPassword() {
         return password;
     }
-
     public boolean isAdminAccess() {
         return adminAccess;
     }
-
     public void setAdminAccess(boolean adminAccess) {
         this.adminAccess = adminAccess;
     }
     public Float getBalance() {
         return balance;
     }
-
     public void setBalance(Float balance) {
         this.balance = balance;
     }
-
     public Long getAccNumber() {
         return accNumber;
     }
-
     public void setAccNumber(Long accNumber) {
         this.accNumber = accNumber;
     }
-
+    public String getCountry() {
+        return country;
+    }
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

@@ -5,42 +5,32 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.simtechdata.Switcher;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Collection;
-import com.example.aplikacjabankowajava.AESEncryption.*;
-
-import static com.example.aplikacjabankowajava.AESEncryption.encryptData;
-
 
 public class HelloApplication extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("panelLogowania.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        primaryStage.setTitle("Aplikacja Bankowa!");
-        primaryStage.setHeight(400);
-        primaryStage.setWidth(600);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-        Switcher.addScene(1,scene,primaryStage);
-        Switcher.showScene(1);
-        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("panelUser.fxml"));
-        Scene scene2 = new Scene(fxmlLoader2.load(), 600, 400);
-        Switcher.addScene(2,scene2,primaryStage);
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("panelLogowania.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("Aplikacja Bankowa!");
+        stage.setHeight(450);
+        stage.setWidth(650);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+        ArrayList<user> userArrayList = new ArrayList<>();
         user admin = new user("admin","admin",12345678l,"admin",true,"Poland");
-        admin.setBalance(1000.0f);
-        final FileOutputStream fileOutputStream = new FileOutputStream("data.txt");
-        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(admin);
-        objectOutputStream.flush();
-        objectOutputStream.close();
-        fileOutputStream.close();
+        user admin2 = new user("admin2","admin2",12345679l,"admin2",true,"Germany");
+        user user1 = new user("Michal","Mlodawski",69696969l,"java",false,"USA");
+        user1.setBalance(2137.0f);
+        userArrayList.add(admin);
+        userArrayList.add(admin2);
+        userArrayList.add(user1);
+
+        serialization.serializeList("data.txt",userArrayList);
     }
 
     public static void main(String[] args) {
