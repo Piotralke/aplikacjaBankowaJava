@@ -6,8 +6,7 @@ import javax.money.*;
 
 public class countryHashMap implements Serializable {
     private static HashMap<String, String> countryCurrency = new HashMap<>();
-
-    countryHashMap(){
+    public static void init(){
         countryCurrency.put("Poland","PLN");
         countryCurrency.put("Germany", "EUR");
         countryCurrency.put("England", "GBP");

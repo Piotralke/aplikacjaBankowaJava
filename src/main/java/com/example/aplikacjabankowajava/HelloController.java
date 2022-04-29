@@ -50,7 +50,7 @@ public class HelloController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("panelUser.fxml"));
                     root=loader.load();
                     userController userController = loader.getController();
-                    userController.initUser(tempList.get(i));
+                    userController.initUser(tempList.get(i),i);
                     userController.initList(tempList.get(i));
                 }
 

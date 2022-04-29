@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 
 public class HelloApplication extends Application {
 
@@ -19,20 +21,21 @@ public class HelloApplication extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-        //ArrayList<user> userArrayList = new ArrayList<>();
-        //user admin = new user("admin","admin",12345678l,"admin",true,"Poland",true);
-        //user admin2 = new user("admin2","admin2",12345679l,"admin2",true,"Germany",false);
-        //user user1 = new user("Michal","Mlodawski",69696969l,"java",false,"USA",false);
-        //user1.setBalance(2137.0f);
-        //transaction t = new transaction(10.0f,"Przelew",1234l,"ddada",4321l,"tata");
-        //ArrayList<transaction> temp = new ArrayList<>();
-        //temp.add(t);
-        //user1.setTransacionList(temp);
-        //userArrayList.add(admin);
-        //userArrayList.add(admin2);
-        //userArrayList.add(user1);
+        countryHashMap.init();
+        ArrayList<user> userArrayList = new ArrayList<>();
+        user admin = new user("admin","admin",12345678l,"admin",true,"Poland",true);
+        user admin2 = new user("admin2","admin2",12345679l,"admin2",true,"Germany",false);
+        user user1 = new user("Michal","Mlodawski",69696969l,"java",false,"USA",false);
+        user1.setBalance(2137.0f);
+        transaction t = new transaction(10.0f,"Przelew",1234l,"ddada",4321l,"tata");
+        ArrayList<transaction> temp = new ArrayList<>();
+        temp.add(t);
+        user1.setTransacionList(temp);
+        userArrayList.add(admin);
+        userArrayList.add(admin2);
+        userArrayList.add(user1);
 
-        //serialization.serializeUserList("data.txt",userArrayList);
+        serialization.serializeUserList("data.txt",userArrayList);
     }
 
     public static void main(String[] args) {

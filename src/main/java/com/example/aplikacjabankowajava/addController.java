@@ -49,12 +49,15 @@ public class addController {
         tempList = new ArrayList<>();
     }
 
-    public void init(boolean manager){
+    public void init(boolean manager) throws IOException, ClassNotFoundException {
         if(manager)
             isadmin.setVisible(true);
+        ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         Random rand = new Random();
-        Long temp = 10000000+rand.nextLong(89999999);
-        login.setText(temp.toString());
+
+        Long tempL = 10000000+rand.nextLong(89999999);
+        tempList = new ArrayList<>();
+        login.setText(tempL.toString());
         String passwordT = new Random().ints(10, 33, 122).collect(StringBuilder::new,
                         StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
