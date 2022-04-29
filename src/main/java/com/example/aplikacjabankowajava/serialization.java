@@ -31,4 +31,17 @@ public class serialization {
         objectOutputStream.close();
         fileOutputStream.close();
     }
+    public static boolean deserializeManager(String path) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(path);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        return (boolean)objectInputStream.readObject();
+    }
+    public static void serializeManager(String path, boolean manager) throws IOException {
+        final FileOutputStream fileOutputStream = new FileOutputStream(path);
+        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(manager);
+        objectOutputStream.flush();
+        objectOutputStream.close();
+        fileOutputStream.close();
+    }
 }

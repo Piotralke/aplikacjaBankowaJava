@@ -54,20 +54,18 @@ public class listController {
                 }
             });
         }
+        userList = new ArrayList<>();
     }
 
     @FXML
     protected void goBack(ActionEvent event) throws IOException {
-        switchToScene1(event);
-    }
-
-    public void switchToScene1(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("panelAdmin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     public void switchToTransactions(String login) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionList.fxml"));

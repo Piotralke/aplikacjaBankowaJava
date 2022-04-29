@@ -29,28 +29,29 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick(ActionEvent event) throws Exception {
-        ArrayList<user> temp = serialization.deserializeUserList("data.txt");
+        ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         Long loginT = Long.valueOf(loginText.getText());
         String passT = passwordText.getText();
-        for(int i = 0; i<temp.size();i++)
+        for(int i = 0; i<tempList.size();i++)
         {
-            if(loginT.equals(temp.get(i).getLogin())&&passT.equals(temp.get(i).getPassword()))
+            if(loginT.equals(tempList.get(i).getLogin())&&passT.equals(tempList.get(i).getPassword()))
             {
                 loginText.setText("");
                 passwordText.setText("");
                 errorLabel.setText("");
-                if(temp.get(i).isAdminAccess())
+                if(tempList.get(i).isAdminAccess())
                 {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("panelAdmin.fxml"));
                     root=loader.load();
+                    serialization.serializeManager("manager.txt",tempList.get(i).isManager());
                 }
                 else
                 {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("panelUser.fxml"));
                     root=loader.load();
                     userController userController = loader.getController();
-                    userController.initUser(temp.get(i));
-                    userController.initList(temp.get(i));
+                    userController.initUser(tempList.get(i));
+                    userController.initList(tempList.get(i));
                 }
 
                 switchToScene2(event);
@@ -60,6 +61,7 @@ public class HelloController {
                 errorLabel.setText("Niepoprawne dane!");
             }
         }
+        tempList = new ArrayList<>();
     }
 
     public void switchToScene2(ActionEvent event) throws IOException{

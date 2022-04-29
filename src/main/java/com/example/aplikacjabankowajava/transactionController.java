@@ -52,6 +52,7 @@ public class transactionController {
                 }
             }
         });
+        userList = new ArrayList<>();
     }
 
 

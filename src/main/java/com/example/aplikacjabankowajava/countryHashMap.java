@@ -5,7 +5,7 @@ import java.util.HashMap;
 import javax.money.*;
 
 public class countryHashMap implements Serializable {
-    private HashMap<String, String> countryCurrency = new HashMap<>();
+    private static HashMap<String, String> countryCurrency = new HashMap<>();
 
     countryHashMap(){
         countryCurrency.put("Poland","PLN");
@@ -13,11 +13,11 @@ public class countryHashMap implements Serializable {
         countryCurrency.put("England", "GBP");
         countryCurrency.put("USA","USD");
     }
-    public String getCurrency(String country)
+    public static String getCurrency(String country)
     {
         return countryCurrency.get(country);
     }
-    public int getCountryID(String country)
+    public static int getCountryID(String country)
     {
         int j = 0;
         for (String i : countryCurrency.keySet()) {
@@ -28,4 +28,5 @@ public class countryHashMap implements Serializable {
         }
         return 0;
     }
+
 }

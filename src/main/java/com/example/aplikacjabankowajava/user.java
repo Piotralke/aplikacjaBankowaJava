@@ -22,12 +22,13 @@ public class user implements Serializable {
     private Long accNumber;
     private String country;
     private String currency;
-    private countryHashMap countryMap = new countryHashMap();
     private ArrayList<transaction> transacionList = new ArrayList<>();
+    private boolean active;
+    private boolean manager;
 
     public user() {
     }
-    public user(String name, String surname, Long login, String password, boolean adminAccess, String country){
+    public user(String name, String surname, Long login, String password, boolean adminAccess, String country, boolean manager){
         this.name=name;
         this.surname=surname;
         this.login=login;
@@ -36,7 +37,9 @@ public class user implements Serializable {
         this.balance = 0.0f;
         this.accNumber = generate(country,login);
         this.country = country;
-        this.currency = countryMap.getCurrency(country);
+        this.currency = countryHashMap.getCurrency(country);
+        this.active = false;
+        this.manager = manager;
     }
     private void writeObject(ObjectOutputStream oos) throws Exception {
         oos.defaultWriteObject();
@@ -52,7 +55,7 @@ public class user implements Serializable {
         Random rand = new Random();
         int temp = 1000+rand.nextInt(8999);
 
-        StringBuilder number = new StringBuilder().append(login).append(temp).append(countryMap.getCountryID(country));
+        StringBuilder number = new StringBuilder().append(login).append(temp).append(countryHashMap.getCountryID(country));
         Long output = Long.valueOf(number.toString());
         return output;
     }
@@ -68,7 +71,6 @@ public class user implements Serializable {
     public String getSurname(){
         return surname;
     }
-
     public String getCurrency() {
         return currency;
     }
@@ -110,6 +112,10 @@ public class user implements Serializable {
     public void setCountry(String country) {
         this.country = country;
     }
+    public boolean isActive() {return active;}
+    public void setActive(boolean active) {this.active = active;}
+    public boolean isManager() {return manager;}
+    public void setManager(boolean manager) {this.manager = manager;}
 
     public ArrayList<transaction> getTransacionList() {
         return transacionList;
