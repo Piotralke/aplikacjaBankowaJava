@@ -50,6 +50,7 @@ public class HelloController {
                     root=loader.load();
                     userController userController = loader.getController();
                     userController.initUser(temp.get(i));
+                    userController.initList(temp.get(i));
                 }
 
                 switchToScene2(event);

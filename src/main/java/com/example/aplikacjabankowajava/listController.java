@@ -42,8 +42,14 @@ public class listController {
                     if(event.getClickCount()==2)
                     {
                         String login = (listView.getSelectionModel().getSelectedItem().toString());
-                        Long loginT = Long.valueOf(login.substring(0,8));
-                      //  switchToTransactions(event);
+                        String loginT = String.valueOf(login.substring(0,8));
+                        try {
+                            switchToTransactions(loginT);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             });
@@ -63,12 +69,12 @@ public class listController {
         stage.show();
     }
     @FXML
-    public void switchToTransactions(ActionEvent event) throws IOException, ClassNotFoundException {
+    public void switchToTransactions(String login) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionList.fxml"));
         root=loader.load();
         transactionController transactionController = loader.getController();
-        transactionController.initList();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        transactionController.initList(login);
+        stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

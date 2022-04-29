@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class transaction implements Serializable {
     String number;
-    int balance;
+    Float amount;
     String title;
     String comment;
     String date;
@@ -16,17 +16,17 @@ public class transaction implements Serializable {
     Long secondAcc;
     String secondAccName;
 
-    transaction(int balance,String title, Long senderAcc, String senderName,Long receiverAcc,String receiverName, String comment)
+    transaction(Float amount,String title, Long senderAcc, String senderName,Long receiverAcc,String receiverName, String comment)
     {
-        this(balance,title,senderAcc,senderName,receiverAcc,receiverName);
+        this(amount,title,senderAcc,senderName,receiverAcc,receiverName);
         this.comment=comment;
     }
-    transaction(int balance,String title, Long senderAcc, String senderName,Long receiverAcc, String receiverName)
+    transaction(Float amount,String title, Long senderAcc, String senderName,Long receiverAcc, String receiverName)
     {
         this.date = generateDate();
         this.number = generateTransaction();
         this.title = title;
-        this.balance=balance;
+        this.amount=amount;
         this.firstAcc = senderAcc;
         this.firstAccName = senderName;
         this.secondAcc = receiverAcc;
@@ -46,12 +46,12 @@ public class transaction implements Serializable {
         StringBuilder stringBuilder = new StringBuilder().append(this.date.substring(0,3)).append(temp).append(this.date.substring(5,6)+this.date.substring(8,9));
         return stringBuilder.toString();
     }
-    public int getBalance() {
-        return balance;
+    public Float getBalance() {
+        return amount;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void setBalance(Float amount) {
+        this.amount = amount;
     }
 
     public String getComment() {

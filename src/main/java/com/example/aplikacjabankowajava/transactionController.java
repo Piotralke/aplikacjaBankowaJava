@@ -27,9 +27,17 @@ public class transactionController {
     private Button back;
 
     @FXML
-    public void initList() throws IOException, ClassNotFoundException {
+    public void initList(String login) throws IOException, ClassNotFoundException {
         ArrayList<user> userList = serialization.deserializeUserList("data.txt");
-        ArrayList<transaction> transactions = userList.get(2).getTransacionList();  //zamiast 2 musi byc parametr jakis oc by odpowiedniego usera pobieral
+        int j;
+        for(j = 0;j<userList.size()-1;j++)
+        {
+            if(userList.get(j).getLogin().equals(login))
+            {
+                break;
+            }
+        }
+        ArrayList<transaction> transactions = userList.get(j).getTransacionList();
         for(int i=0;i<transactions.size();i++)
         {
             listView.getItems().add(transactions.get(i).getBalance() + "\t\t\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName() );
@@ -49,12 +57,15 @@ public class transactionController {
 
 
     @FXML
-    protected void goBack(ActionEvent event) throws IOException {
+    protected void goBack(ActionEvent event) throws IOException, ClassNotFoundException {
         switchToScene1(event);
     }
 
-    public void switchToScene1(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("userList.fxml"));
+    public void switchToScene1(ActionEvent event) throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("userList.fxml"));
+        root=loader.load();
+        listController listController = loader.getController();
+        listController.initList();
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

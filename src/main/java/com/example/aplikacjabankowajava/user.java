@@ -114,7 +114,6 @@ public class user implements Serializable {
     public ArrayList<transaction> getTransacionList() {
         return transacionList;
     }
-
     public void setTransacionList(ArrayList<transaction> transacionList) {
         this.transacionList = transacionList;
     }
