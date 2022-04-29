@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 
 public class HelloApplication extends Application {
 
@@ -31,7 +33,7 @@ public class HelloApplication extends Application {
         //userArrayList.add(admin);
         //userArrayList.add(admin2);
         //userArrayList.add(user1);
-
+//
         //serialization.serializeUserList("data.txt",userArrayList);
     }
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.transactionController">
+   <children>
+      <Button mnemonicParsing="false" onAction="#goBack" text="Powrót" fx:id="back" />
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ScrollPane layoutX="8.0" layoutY="8.0" prefHeight="384.0" prefWidth="588.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="392.0" prefWidth="596.0">
+                     <children>
+                        <ListView fx:id="listView" prefHeight="362.0" prefWidth="573.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
