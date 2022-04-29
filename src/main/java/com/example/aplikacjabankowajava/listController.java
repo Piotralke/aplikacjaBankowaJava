@@ -28,7 +28,7 @@ public class listController {
 
     @FXML
     public void initList() throws IOException, ClassNotFoundException {
-        ArrayList<user> userList = serialization.deserializeList("data.txt");
+        ArrayList<user> userList = serialization.deserializeUserList("data.txt");
         for(int i=0;i<userList.size();i++)
         {
             if(!userList.get(i).isAdminAccess())
@@ -36,20 +36,19 @@ public class listController {
                 listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
              //   listView.getItems().add(userList.get(i).toString());
             }
-        }
-        listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getClickCount()==2)
-                {
-                    String login = (listView.getSelectionModel().getSelectedItem().toString());
-                    Long loginT = Long.valueOf(login.substring(0,8));
+            listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if(event.getClickCount()==2)
+                    {
+                        String login = (listView.getSelectionModel().getSelectedItem().toString());
+                        Long loginT = Long.valueOf(login.substring(0,8));
+                      //  switchToTransactions(event);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
-
-
 
     @FXML
     protected void goBack(ActionEvent event) throws IOException {
@@ -58,6 +57,17 @@ public class listController {
 
     public void switchToScene1(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("panelAdmin.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    public void switchToTransactions(ActionEvent event) throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionList.fxml"));
+        root=loader.load();
+        transactionController transactionController = loader.getController();
+        transactionController.initList();
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

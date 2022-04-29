@@ -3,6 +3,7 @@ package com.example.aplikacjabankowajava;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
@@ -22,7 +23,7 @@ public class user implements Serializable {
     private String country;
     private String currency;
     private countryHashMap countryMap = new countryHashMap();
-
+    private ArrayList<transaction> transacionList = new ArrayList<>();
 
     public user() {
     }
@@ -49,7 +50,7 @@ public class user implements Serializable {
     private Long generate(String country, Long login){
         //BANK NUMBER(8)- LOGIN(8)- ACC NUMBER(4) - COUNTRY(2)
         Random rand = new Random();
-        Long temp = 1000l+rand.nextLong(8999l);
+        int temp = 1000+rand.nextInt(8999);
 
         StringBuilder number = new StringBuilder().append(login).append(temp).append(countryMap.getCountryID(country));
         Long output = Long.valueOf(number.toString());
@@ -108,5 +109,13 @@ public class user implements Serializable {
     }
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public ArrayList<transaction> getTransacionList() {
+        return transacionList;
+    }
+
+    public void setTransacionList(ArrayList<transaction> transacionList) {
+        this.transacionList = transacionList;
     }
 }

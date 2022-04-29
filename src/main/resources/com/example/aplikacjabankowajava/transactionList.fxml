@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.listController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.transactionController">
    <children>
-      <Button fx:id="back" mnemonicParsing="false" onAction="#goBack" text="Powrót" />
+      <Button mnemonicParsing="false" onAction="#goBack" text="Powrót" fx:id="back" />
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
             <ScrollPane layoutX="8.0" layoutY="8.0" prefHeight="384.0" prefWidth="588.0">

@@ -29,7 +29,7 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick(ActionEvent event) throws Exception {
-        ArrayList<user> temp = serialization.deserializeList("data.txt");
+        ArrayList<user> temp = serialization.deserializeUserList("data.txt");
         Long loginT = Long.valueOf(loginText.getText());
         String passT = passwordText.getText();
         for(int i = 0; i<temp.size();i++)

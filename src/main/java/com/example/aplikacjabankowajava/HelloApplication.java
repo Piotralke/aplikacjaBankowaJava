@@ -30,7 +30,7 @@ public class HelloApplication extends Application {
         userArrayList.add(admin2);
         userArrayList.add(user1);
 
-        serialization.serializeList("data.txt",userArrayList);
+        serialization.serializeUserList("data.txt",userArrayList);
     }
 
     public static void main(String[] args) {
