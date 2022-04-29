@@ -35,6 +35,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
+            <Label fx:id="numerKonta" layoutX="40.0" layoutY="80.0" onMouseClicked="#toClipboard" />
       </children>
     </AnchorPane>
       <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
