@@ -54,8 +54,13 @@ public class addController {
             isadmin.setVisible(true);
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         Random rand = new Random();
-
         Long tempL = 10000000+rand.nextLong(89999999);
+        for(int i=0;i< tempList.size();i++){
+            if(tempL.equals(tempList.get(i).getLogin())){
+                tempL = 10000000+rand.nextLong(89999999);
+                i=0;
+            }
+        }
         tempList = new ArrayList<>();
         login.setText(tempL.toString());
         String passwordT = new Random().ints(10, 33, 122).collect(StringBuilder::new,

@@ -45,6 +45,39 @@ public class userController {
 
     Dialog<String> dialog = new Dialog<>();
 
+    public boolean isValid(String pass){
+        boolean validation = true;
+        if (pass.length() > 15 || pass.length() < 8)
+        {
+            System.out.println("Password must be less than 20 and more than 8 characters in length.");
+            validation = false;
+        }
+        String upperCaseChars = "(.*[A-Z].*)";
+        if (!pass.matches(upperCaseChars ))
+        {
+            System.out.println("Password must have atleast one uppercase character");
+            validation = false;
+        }
+        String lowerCaseChars = "(.*[a-z].*)";
+        if (!pass.matches(lowerCaseChars ))
+        {
+            System.out.println("Password must have atleast one lowercase character");
+            validation = false;
+        }
+        String numbers = "(.*[0-9].*)";
+        if (!pass.matches(numbers ))
+        {
+            System.out.println("Password must have atleast one number");
+            validation = false;
+        }
+        String specialChars = "(.*[@,#,$,%].*$)";
+        if (!pass.matches(specialChars ))
+        {
+            System.out.println("Password must have atleast one special character among @#$%");
+            validation = false;
+        }
+        return validation;
+    }
 
     @FXML
     public void initUser(user user, int position) throws IOException, ClassNotFoundException {
@@ -65,7 +98,8 @@ public class userController {
         loginButton.setDisable(true);
 
         password.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
+            if(isValid(newValue))
+                loginButton.setDisable(newValue.trim().isEmpty());
         });
         dialog.setOnCloseRequest(null);
         dialog.initStyle(StageStyle.TRANSPARENT);
