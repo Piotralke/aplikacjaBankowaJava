@@ -70,7 +70,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Button layoutX="25.0" layoutY="22.0" mnemonicParsing="false" text="Wykonaj przelew" />
+                        <Button layoutX="25.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchToTransfer" text="Wykonaj przelew" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">

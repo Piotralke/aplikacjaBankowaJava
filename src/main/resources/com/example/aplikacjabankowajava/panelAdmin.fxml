@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.adminController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.adminController">
    <children>
       <HBox>
          <children>
@@ -22,14 +27,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="depositButton" alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="2.0" mnemonicParsing="false" onAction="#switchToList" text="Depozyt pieniędzy" />
-               </children>
-            </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Button fx:id="creditButton" layoutX="85.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToList" text="Autoryzacje kredytów" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="historyButton" layoutX="95.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToList" text="Historie transakcji" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -37,14 +42,14 @@
                   <Button fx:id="changeButton" layoutX="65.0" layoutY="4.0" mnemonicParsing="false" onAction="#switchToList" text="Zmiana danych dostępowych" />
                </children>
             </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="depositButton" alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="2.0" mnemonicParsing="false" onAction="#switchToList" text="Depozyt pieniędzy" />
+               </children>
+            </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
                   <Button layoutX="92.0" layoutY="4.0" mnemonicParsing="false" onAction="#switchToAdd" text="Dodaj użytkownika" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <Button fx:id="historyButton" layoutX="95.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToList" text="Historie transakcji" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">

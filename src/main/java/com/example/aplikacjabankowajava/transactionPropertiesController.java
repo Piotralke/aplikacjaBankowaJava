@@ -48,7 +48,7 @@ public class transactionPropertiesController {
     }
     @FXML
     protected void goBack(ActionEvent event) throws IOException, ClassNotFoundException {
-        FXMLLoader loader = null;
+        FXMLLoader loader;
         if(serialization.deserializeString("exit.txt").equals("user")){
             loader = new FXMLLoader(getClass().getResource("panelUser.fxml"));
             root=loader.load();

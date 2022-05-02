@@ -2,6 +2,7 @@ package com.example.aplikacjabankowajava;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -41,11 +42,13 @@ public class user implements Serializable {
         this.active = false;
         this.manager = manager;
     }
+    @Serial
     private void writeObject(ObjectOutputStream oos) throws Exception {
         oos.defaultWriteObject();
         String encryptPassword = encryptData(password);
         oos.writeObject(encryptPassword);
     }
+    @Serial
     private void readObject(ObjectInputStream ois) throws Exception{
         ois.defaultReadObject();
         this.password = (Objects.requireNonNull(decryptData((String)ois.readObject())));
@@ -56,8 +59,7 @@ public class user implements Serializable {
         int temp = 1000+rand.nextInt(8999);
 
         StringBuilder number = new StringBuilder().append(login).append(temp).append(countryHashMap.getCountryID(country));
-        Long output = Long.valueOf(number.toString());
-        return output;
+        return Long.valueOf(number.toString());
     }
     public void setName(String name){
         this.name = name;

@@ -2,7 +2,6 @@ package com.example.aplikacjabankowajava;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -12,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -80,7 +78,7 @@ public class userController {
     }
 
     @FXML
-    public void initUser(user user, int position) throws IOException, ClassNotFoundException {
+    public void initUser(user user, int position){
         dialog.setTitle("Zmiana hasła");
         dialog.setHeaderText("Wymagana zmiana hasła!");
         ButtonType loginButtonType = new ButtonType("Zatwierdź", ButtonBar.ButtonData.OK_DONE);
@@ -104,7 +102,7 @@ public class userController {
         dialog.setOnCloseRequest(null);
         dialog.initStyle(StageStyle.TRANSPARENT);
         dialog.getDialogPane().setContent(grid);
-        Platform.runLater(() -> password.requestFocus());
+        Platform.runLater(password::requestFocus);
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
@@ -117,12 +115,10 @@ public class userController {
             Optional<String> result = dialog.showAndWait();
 
             result.ifPresent(passwordN ->{
-                ArrayList<user> tempList = null;
+                ArrayList<user> tempList;
                 try {
                     tempList = serialization.deserializeUserList("data.txt");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
                 tempList.get(position).setPassword(passwordN);
@@ -132,18 +128,17 @@ public class userController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                tempList = new ArrayList<>();
             });
         }
 
         welcomeLabel.setText("Witaj " + user.getName());
         balanceLabel.setText(user.getBalance().toString() + user.getCurrency());
         numerKonta.setText("Numer konta: " + user.getAccNumber());
-        popup.getContent().add(label);
         //label.setMinWidth();
         //label.setMinHeight();
         //label.setLayoutX(40);
         //label.setLayoutY(40);
+        popup.getContent().add(label);
     }
 
     @FXML
@@ -153,18 +148,13 @@ public class userController {
         {
             transactionList.getItems().add(transactions.get(i).getBalance() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName() );
         }
-        transactionList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getClickCount()==2)
-                {
-                    try {
-                        switchToProperties(transactionList.getSelectionModel().getSelectedIndex());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+        transactionList.setOnMouseClicked(event -> {
+            if(event.getClickCount()==2)
+            {
+                try {
+                    switchToProperties(transactions.get(transactionList.getSelectionModel().getSelectedIndex()));
+                } catch (IOException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
@@ -191,31 +181,28 @@ public class userController {
                 });
             }
         },5000);
-
     }
 
-    public void switchToProperties(int numberT) throws IOException, ClassNotFoundException {
-        String login = serialization.deserializeString("login.txt");
-        ArrayList<user> userList = serialization.deserializeUserList("data.txt");
-        int j;
-        for(j = 0;j<userList.size()-1;j++)
-        {
-            if(userList.get(j).getLogin().equals(login))
-            {
-                break;
-            }
-        }
-        ArrayList<transaction> transactions = userList.get(j).getTransacionList();
+    public void switchToProperties(transaction transaction) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionProperties.fxml"));
         root=loader.load();
         transactionPropertiesController transactionPropertiesController = loader.getController();
-        transactionPropertiesController.init(transactions.get(numberT));
+        transactionPropertiesController.init(transaction);
         stage = (Stage)transactionList.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        userList = new ArrayList<>();
-        transactions = new ArrayList<>();
+    }
+
+    public void switchToTransfer() throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newTransfer.fxml"));
+        root=loader.load();
+        transferController transferController = loader.getController();
+        transferController.init();
+        stage = (Stage)transactionList.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void logOut(ActionEvent event) throws IOException {
@@ -225,7 +212,4 @@ public class userController {
         stage.setScene(scene);
         stage.show();
     }
-
-
-
 }

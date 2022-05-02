@@ -1,15 +1,12 @@
 package com.example.aplikacjabankowajava;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,9 +19,6 @@ public class listController {
 
     @FXML
     private ListView listView;
-
-    @FXML
-    private Button back;
 
     @FXML
     public void initList() throws IOException, ClassNotFoundException {
@@ -45,38 +39,35 @@ public class listController {
                 //   listView.getItems().add(userList.get(i).toString());
             }
 
-            listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if(event.getClickCount()==2)
-                    {
+            listView.setOnMouseClicked(event -> {
+                if(event.getClickCount()==2)
+                {
 
-                        String login = (listView.getSelectionModel().getSelectedItem().toString());
-                        String loginT = String.valueOf(login.substring(0, 8));
-                        try {
-                            if(idB.equals("historyButton")) {
+                    String login = (listView.getSelectionModel().getSelectedItem().toString());
+                    String loginT = login.substring(0, 8);
+                    try {
+                        switch (idB) {
+                            case "historyButton":
                                 switchToTransactions(loginT);
-                            }else if(idB.equals("changeButton")){
+                                break;
+                            case "changeButton":
                                 switchToChanges(loginT);
-                            }else if(idB.equals("creditButton")){
+                                break;
+                            case "creditButton":
 
-                            }else if(idB.equals("depositButton")){
+                                break;
+                            case "depositButton":
 
-                            }
-                        }catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }catch (ClassNotFoundException e) {
-                            throw new RuntimeException(e);
+                                break;
                         }
+                    }catch (IOException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
                     }
-
                 }
+
             });
         }
-        userList = new ArrayList<>();
         }
-
-
 
     @FXML
     protected void goBack(ActionEvent event) throws IOException {

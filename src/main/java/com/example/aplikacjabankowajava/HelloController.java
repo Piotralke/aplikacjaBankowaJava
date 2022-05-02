@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.*;
 
 import java.util.ArrayList;
 
@@ -54,6 +53,7 @@ public class HelloController {
                     userController.initUser(tempList.get(i),i);
                     userController.initList(tempList.get(i));
                     serialization.serializeString("exit.txt","user");
+                    serialization.serializeString("login.txt",tempList.get(i).getLogin().toString());
                 }
 
                 switchToScene2(event);
@@ -63,10 +63,9 @@ public class HelloController {
                 errorLabel.setText("Niepoprawne dane!");
             }
         }
-        tempList = new ArrayList<>();
     }
 
-    public void switchToScene2(ActionEvent event) throws IOException{
+    public void switchToScene2(ActionEvent event){
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

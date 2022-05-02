@@ -54,7 +54,6 @@ public class changeController {
                 break;
             }
         }
-        tempList = new ArrayList<>();
     }
 
     @FXML
@@ -68,7 +67,6 @@ public class changeController {
             tempList.get(i).setAdminAccess(isadmin.isSelected());
         }
         serialization.serializeUserList("data.txt",tempList);
-        tempList = new ArrayList<>();
     }
     @FXML
     protected void goBack(ActionEvent event) throws IOException, ClassNotFoundException {

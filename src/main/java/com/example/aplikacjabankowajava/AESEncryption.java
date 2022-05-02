@@ -23,7 +23,7 @@ public class AESEncryption {
             e.printStackTrace();
         }
     }
-    public AESEncryption() throws UnsupportedEncodingException {
+    public AESEncryption(){
     }
     public static String encryptData(String value) {
         try {
