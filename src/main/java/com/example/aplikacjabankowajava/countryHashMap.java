@@ -16,6 +16,15 @@ public class countryHashMap implements Serializable {
     {
         return countryCurrency.get(country);
     }
+    public static String[] getCountries(){
+        String[] array = new String[countryCurrency.size()];
+        int j=0;
+        for (String i : countryCurrency.keySet()) {
+            array[j]=i;
+            j++;
+        }
+        return array;
+    }
     public static int getCountryID(String country)
     {
         int j = 0;

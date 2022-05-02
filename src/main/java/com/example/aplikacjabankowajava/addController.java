@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -28,9 +29,9 @@ public class addController {
     @FXML
     private TextField surname;
     @FXML
-    private TextField country;
-    @FXML
     private CheckBox isadmin;
+    @FXML
+    private ChoiceBox countryChoice;
     @FXML
     protected void goBack(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("panelAdmin.fxml"));
@@ -43,7 +44,8 @@ public class addController {
     @FXML
     protected void addUser() throws IOException, ClassNotFoundException {
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
-        user tempUser = new user(name.getText(), surname.getText(), Long.valueOf(login.getText()), password.getText(), isadmin.isSelected(), country.getText(), false);
+
+        user tempUser = new user(name.getText(), surname.getText(), Long.valueOf(login.getText()), password.getText(), isadmin.isSelected(), countryChoice.getSelectionModel().getSelectedItem().toString(), false);
         tempList.add(tempUser);
         serialization.serializeUserList("data.txt",tempList);
         tempList = new ArrayList<>();
@@ -67,5 +69,9 @@ public class addController {
                         StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
         password.setText(passwordT);
+        String[] countryArray = countryHashMap.getCountries();
+        for(int i=0; i<countryArray.length;i++) {
+            countryChoice.getItems().add(countryArray[i]);
+        }
     }
 }

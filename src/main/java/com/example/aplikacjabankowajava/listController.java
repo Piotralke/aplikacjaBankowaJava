@@ -31,13 +31,20 @@ public class listController {
         String idB=serialization.deserializeButtonId("button.txt"); //tu mamy fx:id przycisku ktory wywolal nasza akcje wiec po tym mozemy dostowac rzeczy wyswietlane w listView :)
 
         ArrayList<user> userList = serialization.deserializeUserList("data.txt");
+
         for(int i=0;i<userList.size();i++)
         {
-            if(!userList.get(i).isAdminAccess())
-            {
+            if(!serialization.deserializeManager("manager.txt")){
+                if(!userList.get(i).isAdminAccess())
+                {
+                    listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
+                    //   listView.getItems().add(userList.get(i).toString());
+                }
+            }else{
                 listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
                 //   listView.getItems().add(userList.get(i).toString());
             }
+
             listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
