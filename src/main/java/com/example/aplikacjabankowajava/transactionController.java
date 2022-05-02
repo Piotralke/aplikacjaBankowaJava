@@ -27,7 +27,8 @@ public class transactionController {
     private Button back;
 
     @FXML
-    public void initList(String login) throws IOException, ClassNotFoundException {
+    public void initList() throws IOException, ClassNotFoundException {
+        String login = serialization.deserializeString("login.txt");
         ArrayList<user> userList = serialization.deserializeUserList("data.txt");
         int j;
         for(j = 0;j<userList.size()-1;j++)
@@ -47,15 +48,43 @@ public class transactionController {
             public void handle(MouseEvent event) {
                 if(event.getClickCount()==2)
                 {
-                    String login = (listView.getSelectionModel().getSelectedItem().toString());
-                    Long loginT = Long.valueOf(login.substring(0,8));
+                    try {
+                        switchToProperties(listView.getSelectionModel().getSelectedIndex());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
         userList = new ArrayList<>();
+        transactions = new ArrayList<>();
     }
+    public void switchToProperties(int numberT) throws IOException, ClassNotFoundException {
+        String login = serialization.deserializeString("login.txt");
+        ArrayList<user> userList = serialization.deserializeUserList("data.txt");
+        int j;
+        for(j = 0;j<userList.size()-1;j++)
+        {
+            if(userList.get(j).getLogin().equals(login))
+            {
+                break;
+            }
+        }
+        ArrayList<transaction> transactions = userList.get(j).getTransacionList();
 
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionProperties.fxml"));
+        root=loader.load();
+        transactionPropertiesController transactionPropertiesController = loader.getController();
+        transactionPropertiesController.init(transactions.get(numberT));
+        stage = (Stage)listView.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        userList = new ArrayList<>();
+        transactions = new ArrayList<>();
+    }
 
     @FXML
     protected void goBack(ActionEvent event) throws IOException, ClassNotFoundException {

@@ -30,7 +30,7 @@ public class adminController {
         listController listController = loader.getController();
         Node n = (Node)event.getSource();
         String id = n.getId();
-        serialization.serializeButtonId("button.txt",id);
+        serialization.serializeString("button.txt",id);
         //System.out.println(id);
         listController.initList();
 

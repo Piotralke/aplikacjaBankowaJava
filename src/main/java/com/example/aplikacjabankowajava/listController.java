@@ -28,7 +28,7 @@ public class listController {
 
     @FXML
     public void initList() throws IOException, ClassNotFoundException {
-        String idB=serialization.deserializeButtonId("button.txt"); //tu mamy fx:id przycisku ktory wywolal nasza akcje wiec po tym mozemy dostowac rzeczy wyswietlane w listView :)
+        String idB=serialization.deserializeString("button.txt"); //tu mamy fx:id przycisku ktory wywolal nasza akcje wiec po tym mozemy dostowac rzeczy wyswietlane w listView :)
 
         ArrayList<user> userList = serialization.deserializeUserList("data.txt");
 
@@ -91,8 +91,9 @@ public class listController {
     public void switchToTransactions(String login) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionList.fxml"));
         root=loader.load();
+        serialization.serializeString("login.txt",login);
         transactionController transactionController = loader.getController();
-        transactionController.initList(login);
+        transactionController.initList();
         stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

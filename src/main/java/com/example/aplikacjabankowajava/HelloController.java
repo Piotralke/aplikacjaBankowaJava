@@ -44,6 +44,7 @@ public class HelloController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("panelAdmin.fxml"));
                     root=loader.load();
                     serialization.serializeManager("manager.txt",tempList.get(i).isManager());
+                    serialization.serializeString("exit.txt","admin");
                 }
                 else
                 {
@@ -52,6 +53,7 @@ public class HelloController {
                     userController userController = loader.getController();
                     userController.initUser(tempList.get(i),i);
                     userController.initList(tempList.get(i));
+                    serialization.serializeString("exit.txt","user");
                 }
 
                 switchToScene2(event);

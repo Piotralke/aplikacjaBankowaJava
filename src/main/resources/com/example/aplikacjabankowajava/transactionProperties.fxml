@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.listController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.transactionPropertiesController">
     <children>
         <Button fx:id="back" mnemonicParsing="false" onAction="#goBack" text="Powrót" />
         <AnchorPane prefHeight="400.0" prefWidth="600.0">
@@ -38,11 +38,11 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <Label fx:id="sencerAcc" layoutX="301.0" layoutY="121.0" text="Nr konta nadawcy">
+            <Label fx:id="senderAcc" layoutX="301.0" layoutY="121.0" text="Nr konta nadawcy">
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <Label fx:id="receiverText" layoutX="300.0" layoutY="268.0" text="Nr konta odbiorcy">
+            <Label fx:id="receiverAcc" layoutX="300.0" layoutY="268.0" text="Nr konta odbiorcy">
                <font>
                   <Font size="20.0" />
                </font></Label>

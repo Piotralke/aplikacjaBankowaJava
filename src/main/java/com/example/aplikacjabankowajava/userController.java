@@ -147,6 +147,30 @@ public class userController {
     }
 
     @FXML
+    public void initList(user user){
+        ArrayList<transaction> transactions = user.getTransacionList();
+        for(int i=0;i<transactions.size();i++)
+        {
+            transactionList.getItems().add(transactions.get(i).getBalance() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName() );
+        }
+        transactionList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getClickCount()==2)
+                {
+                    try {
+                        switchToProperties(transactionList.getSelectionModel().getSelectedIndex());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
+    }
+    @FXML
     public void toClipboard(){
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent content = new ClipboardContent();
@@ -170,6 +194,29 @@ public class userController {
 
     }
 
+    public void switchToProperties(int numberT) throws IOException, ClassNotFoundException {
+        String login = serialization.deserializeString("login.txt");
+        ArrayList<user> userList = serialization.deserializeUserList("data.txt");
+        int j;
+        for(j = 0;j<userList.size()-1;j++)
+        {
+            if(userList.get(j).getLogin().equals(login))
+            {
+                break;
+            }
+        }
+        ArrayList<transaction> transactions = userList.get(j).getTransacionList();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionProperties.fxml"));
+        root=loader.load();
+        transactionPropertiesController transactionPropertiesController = loader.getController();
+        transactionPropertiesController.init(transactions.get(numberT));
+        stage = (Stage)transactionList.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        userList = new ArrayList<>();
+        transactions = new ArrayList<>();
+    }
 
     public void logOut(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("panelLogowania.fxml"));
@@ -178,25 +225,7 @@ public class userController {
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    public void initList(user user){
-        ArrayList<transaction> transactions = user.getTransacionList();
-        for(int i=0;i<transactions.size();i++)
-        {
-            transactionList.getItems().add(transactions.get(i).getBalance() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName() );
-        }
-        transactionList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getClickCount()==2)
-                {
-                    String login = (transactionList.getSelectionModel().getSelectedItem().toString());
-                    Long loginT = Long.valueOf(login.substring(0,8));
-                }
-            }
-        });
 
-    }
 
 
 }
