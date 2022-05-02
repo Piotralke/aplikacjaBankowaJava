@@ -59,10 +59,6 @@ public class transactionController {
 
     @FXML
     protected void goBack(ActionEvent event) throws IOException, ClassNotFoundException {
-        switchToScene1(event);
-    }
-
-    public void switchToScene1(ActionEvent event) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("userList.fxml"));
         root=loader.load();
         listController listController = loader.getController();
@@ -72,4 +68,5 @@ public class transactionController {
         stage.setScene(scene);
         stage.show();
     }
+
 }

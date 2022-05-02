@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -27,6 +28,10 @@ public class adminController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("userList.fxml"));
         root=loader.load();
         listController listController = loader.getController();
+        Node n = (Node)event.getSource();
+        String id = n.getId();
+        serialization.serializeButtonId("button.txt",id);
+        //System.out.println(id);
         listController.initList();
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

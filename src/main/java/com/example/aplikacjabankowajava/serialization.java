@@ -44,4 +44,17 @@ public class serialization {
         objectOutputStream.close();
         fileOutputStream.close();
     }
+    public static String deserializeButtonId(String path) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(path);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        return (String)objectInputStream.readObject();
+    }
+    public static void serializeButtonId(String path, String id) throws IOException {
+        final FileOutputStream fileOutputStream = new FileOutputStream(path);
+        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(id);
+        objectOutputStream.flush();
+        objectOutputStream.close();
+        fileOutputStream.close();
+    }
 }
