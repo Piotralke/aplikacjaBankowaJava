@@ -2,7 +2,6 @@ package com.example.aplikacjabankowajava;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import javax.money.*;
 
 public class countryHashMap implements Serializable {
     private static HashMap<String, String> countryCurrency = new HashMap<>();
