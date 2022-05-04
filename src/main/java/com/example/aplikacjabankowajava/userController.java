@@ -35,11 +35,12 @@ public class userController {
     @FXML
     private Label numerKonta;
 
+    @FXML
+    private Label clipboardAlert;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
-    Popup popup = new Popup();
-    Label label = new Label("Skopiowano do schowka!");
 
     Dialog<String> dialog = new Dialog<>();
 
@@ -96,8 +97,11 @@ public class userController {
         loginButton.setDisable(true);
 
         password.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(isValid(newValue))
-                loginButton.setDisable(newValue.trim().isEmpty());
+            if(isValid(newValue)){
+                loginButton.setDisable(false);
+            }else{
+                loginButton.setDisable(true);
+            }
         });
         dialog.setOnCloseRequest(null);
         dialog.initStyle(StageStyle.TRANSPARENT);
@@ -138,7 +142,6 @@ public class userController {
         //label.setMinHeight();
         //label.setLayoutX(40);
         //label.setLayoutY(40);
-        popup.getContent().add(label);
     }
 
     @FXML
@@ -168,7 +171,7 @@ public class userController {
         content.putString(temp.substring(13));
         clipboard.setContent(content);
 
-        popup.show(transactionList.getScene().getWindow());
+        clipboardAlert.setVisible(true);
 
         Timer timerClipboardPopup = new Timer();
         timerClipboardPopup.schedule(new TimerTask() {
@@ -176,7 +179,7 @@ public class userController {
             @Override
             public void run() {
                 Platform.runLater(()->{
-                    popup.hide();
+                    clipboardAlert.setVisible(false);
                     timerClipboardPopup.cancel();
                 });
             }

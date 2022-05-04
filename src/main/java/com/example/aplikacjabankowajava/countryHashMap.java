@@ -53,6 +53,24 @@ public class countryHashMap implements Serializable {
         }
         return array;
     }
+    public static String[] getValues(){
+        String[] array = new String[countryCurrency.size()];
+        int j=0;
+        for (String i : countryCurrency.values()) {
+            array[j]=i;
+            j++;
+        }
+        //array[0] = getCurrency("Poland");
+        //for(String i : countryCurrency.values()){
+        //    for(int k=0;k < array.length;k++){
+        //        if(i.equals(array[k]))
+        //            break;
+        //        else
+        //            array[k]=i;
+        //    }
+        //}
+        return array;
+    }
     public static int getCountryID(String country)
     {
         int j = 0;
@@ -64,5 +82,4 @@ public class countryHashMap implements Serializable {
         }
         return 0;
     }
-
 }

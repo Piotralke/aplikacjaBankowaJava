@@ -28,21 +28,20 @@ public class listController {
 
         for(int i=0;i<userList.size();i++)
         {
-            if(!serialization.deserializeManager("manager.txt")){
-                if(!userList.get(i).isAdminAccess())
-                {
+
+                if(idB.equals("changeButton")&& serialization.deserializeManager("manager.txt")) {
                     listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
-                    //   listView.getItems().add(userList.get(i).toString());
+                }else if(idB.equals("creditButton")){
+
                 }
-            }else{
-                listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
-                //   listView.getItems().add(userList.get(i).toString());
+                else if(!userList.get(i).isAdminAccess()){
+                    listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
+                }
             }
 
             listView.setOnMouseClicked(event -> {
                 if(event.getClickCount()==2)
                 {
-
                     String login = (listView.getSelectionModel().getSelectedItem().toString());
                     String loginT = login.substring(0, 8);
                     try {
@@ -54,20 +53,19 @@ public class listController {
                                 switchToChanges(loginT);
                                 break;
                             case "creditButton":
-
+                                //switchToCredit(loginT);
                                 break;
                             case "depositButton":
-
+                                switchToTransfer(loginT);
                                 break;
                         }
                     }catch (IOException | ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
                 }
-
             });
         }
-        }
+
 
     @FXML
     protected void goBack(ActionEvent event) throws IOException {
@@ -97,6 +95,19 @@ public class listController {
         root=loader.load();
         changeController changeController = loader.getController();
         changeController.init(login);
+        stage = (Stage)listView.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void switchToTransfer(String login) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addTransfer.fxml"));
+        root=loader.load();
+        adminTransferController adminTransferController = loader.getController();
+        adminTransferController.init();
+        serialization.serializeString("login.txt",login);
         stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
