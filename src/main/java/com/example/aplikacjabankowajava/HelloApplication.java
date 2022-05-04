@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import static javax.money.convert.MonetaryConversions.getConversionProviderNames;
 
 
 public class HelloApplication extends Application {

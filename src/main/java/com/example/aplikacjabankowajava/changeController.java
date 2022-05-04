@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.example.aplikacjabankowajava.countryHashMap.getCurrency;
+import static com.example.aplikacjabankowajava.currencyConverter.convertCurrency;
+
 public class changeController {
 
     private Stage stage;
@@ -32,6 +35,8 @@ public class changeController {
     @FXML
     private CheckBox isadmin;
     private int i;
+    private String currency;
+    private Float balance;
     public void init(String loginT) throws IOException, ClassNotFoundException {
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
 
@@ -41,6 +46,8 @@ public class changeController {
                 password.setText(tempList.get(i).getPassword());
                 name.setText(tempList.get(i).getName());
                 surname.setText(tempList.get(i).getSurname());
+                currency = tempList.get(i).getCurrency();
+                balance = tempList.get(i).getBalance();
                 if(serialization.deserializeManager("manager.txt")){
                     isadmin.setVisible(true);
                     isadmin.setSelected(tempList.get(i).isAdminAccess());
@@ -50,7 +57,7 @@ public class changeController {
                     countryChoice.getItems().add(countryArray[j]);
                 }
                 countryChoice.setValue(tempList.get(i).getCountry());
-                countryChoice.setDisable(true);
+                //countryChoice.setDisable(true);
                 break;
             }
         }
@@ -63,6 +70,10 @@ public class changeController {
         tempList.get(i).setPassword(password.getText());
         tempList.get(i).setName(name.getText());
         tempList.get(i).setSurname(surname.getText());
+        tempList.get(i).setCountry(countryChoice.getValue().toString());
+        tempList.get(i).setCurrency(getCurrency(countryChoice.getValue().toString()));
+        tempList.get(i).setBalance(convertCurrency(balance,currency,getCurrency(countryChoice.getValue().toString())));
+        //ustawianie stanu konta po przeliczeniu waluty
         if(serialization.deserializeManager("manager.txt")){
             tempList.get(i).setAdminAccess(isadmin.isSelected());
         }
