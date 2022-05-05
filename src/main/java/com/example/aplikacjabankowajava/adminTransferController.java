@@ -61,8 +61,8 @@ public class adminTransferController {
         }
         ArrayList<transaction> transactions = userList.get(j).getTransacionList();
         Float amountT = currencyConverter.convertCurrency(Float.parseFloat(amountText.getText()), currencyBox.getValue().toString(), userList.get(j).getCurrency());
-        transaction newT = new transaction(amountT,"Wpłata w placówce banku",0l,"Bank PDJD",userList.get(j).getAccNumber(),userList.get(j).getName());
         userList.get(j).setBalance(userList.get(j).getBalance()+amountT);
+        transaction newT = new transaction(amountT,"Wpłata w placówce banku",null,"Bank PDJD",userList.get(j).getAccNumber(),userList.get(j).getName(),userList.get(j).getBalance(),false, userList.get(j).getCurrency());
         transactions.add(0,newT);
         userList.get(j).setTransacionList(transactions);
         serialization.serializeUserList("data.txt",userList);

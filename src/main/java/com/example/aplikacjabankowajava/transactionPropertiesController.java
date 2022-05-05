@@ -33,15 +33,26 @@ public class transactionPropertiesController {
     private  Label senderAcc;
     @FXML
     private  Label receiverAcc;
+    @FXML
+    private Label balanceLabel;
+    @FXML
+    private Label typeLabel;
 
 
     public void init(transaction transaction){
         transactionNumberText.setText("Transakcja nr. "+transaction.getNumber());
         titleText.setText("Tytuł transakcji:\n"+transaction.getTitle());
-        amountText.setText("Kwota operacji:\n"+ String.format("%.02f", transaction.getBalance().toString()));
         dateText.setText("Data operacji:\n"+transaction.getDate());
         senderName.setText("Nadawca:\n"+transaction.getFirstAccName());
         receiverName.setText("Odbiorca:\n"+transaction.getSecondAccName());
+        balanceLabel.setText("Saldo po operacji:\n"+String.format("%.02f",transaction.getNewBalance()) + transaction.getCurrency());
+        if (transaction.isTransactionType()) {
+            amountText.setText("Kwota operacji:\n"+ "-" + String.format("%.02f", transaction.getBalance())+ transaction.getCurrency());
+            typeLabel.setText("Typ transakcji:\nWychodząca");
+        } else  {
+            amountText.setText("Kwota operacji:\n"+ "+" + String.format("%.02f", transaction.getBalance())+ transaction.getCurrency());
+            typeLabel.setText("Typ transakcji:\nPrzychodząca");
+        }
         if(transaction.getFirstAcc().equals(null))
         {
             senderAcc.setText("");

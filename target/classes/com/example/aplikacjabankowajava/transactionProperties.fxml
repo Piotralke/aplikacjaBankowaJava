@@ -22,7 +22,7 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <Label layoutX="11.0" layoutY="189.0" text="Saldo po operacji .. ?">
+            <Label fx:id="balanceLabel" layoutX="11.0" layoutY="189.0" text="Saldo po operacji .. ?">
                <font>
                   <Font size="20.0" />
                </font></Label>
@@ -47,6 +47,11 @@
                   <Font size="20.0" />
                </font></Label>
             <Button layoutX="396.0" layoutY="361.0" mnemonicParsing="false" text="Generuj potwierdzenie transakcji" />
+            <Label fx:id="typeLabel" layoutX="14.0" layoutY="329.0" text="Typ transakcji">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
         </AnchorPane>
     </children>

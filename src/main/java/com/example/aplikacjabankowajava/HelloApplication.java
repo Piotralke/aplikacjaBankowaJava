@@ -33,12 +33,6 @@ public class HelloApplication extends Application {
         //user admin2 = new user("admin2","admin2",12345679l,"admin2",true,"Germany",false);
         //user user1 = new user("Michal","Mlodawski",69696969l,"java",false,"United States",false);
         //user1.setBalance(2137.0f);
-        //transaction t = new transaction(10.0f,"Przelew",1234l,"ddada",4321l,"tata");
-        //transaction t2 = new transaction(15.0f,"Przelew",1234l,"ddada",4320l,"tata");
-        //ArrayList<transaction> temp = new ArrayList<>();
-        //temp.add(t);
-        //temp.add(0,t2);
-        //user1.setTransacionList(temp);
         //userArrayList.add(admin);
         //userArrayList.add(admin2);
         //userArrayList.add(user1);

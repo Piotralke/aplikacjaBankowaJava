@@ -35,7 +35,13 @@ public class transactionController {
         ArrayList<transaction> transactions = userList.get(j).getTransacionList();
         for(int i=0;i<transactions.size();i++)
         {
-            listView.getItems().add(transactions.get(i).getBalance() + "\t\t\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName() );
+            if(transactions.get(i).isTransactionType()){
+                listView.getItems().add("-" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName());
+            }
+            else{
+                listView.getItems().add("+" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getFirstAccName() );
+            }
+
         }
         listView.setOnMouseClicked(event -> {
             if(event.getClickCount()==2)

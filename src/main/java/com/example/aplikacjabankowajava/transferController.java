@@ -80,11 +80,12 @@ public class transferController {
                 break;
             }
         }
-        transaction newT = new transaction(Float.valueOf(amountText.getText()),titleText.getText(),tempList.get(i).getAccNumber(),tempList.get(i).getName(),Long.valueOf(numAccText.getText()),nameText.getText());
+        tempList.get(i).setBalance(tempList.get(i).getBalance()-Float.parseFloat(amountText.getText()));
+        transaction newT = new transaction(Float.valueOf(amountText.getText()),titleText.getText(),tempList.get(i).getAccNumber(),tempList.get(i).getName(),Long.valueOf(numAccText.getText()),nameText.getText(),tempList.get(i).getBalance(),true,tempList.get(i).getCurrency());
         ArrayList<transaction> tempTransList = tempList.get(i).getTransacionList();
         tempTransList.add(0,newT);
         tempList.get(i).setTransacionList(tempTransList);
-        tempList.get(i).setBalance(tempList.get(i).getBalance()-Float.parseFloat(amountText.getText()));
+
         ballanceLabel.setText("Twój stan konta:\n"+tempList.get(i).getBalance().toString()+tempList.get(i).getCurrency());
         int j;
         for(j=0;j<tempList.size();j++){
@@ -92,7 +93,7 @@ public class transferController {
                 Float amountT = currencyConverter.convertCurrency(Float.parseFloat(amountText.getText()), tempList.get(i).getCurrency(), tempList.get(j).getCurrency());
                 tempList.get(j).setBalance(tempList.get(j).getBalance()+amountT);
                 tempTransList=tempList.get(j).getTransacionList();
-                transaction newT2 = new transaction(amountT,titleText.getText(),tempList.get(i).getAccNumber(),tempList.get(i).getName(),Long.valueOf(numAccText.getText()),nameText.getText());
+                transaction newT2 = new transaction(amountT,titleText.getText(),tempList.get(i).getAccNumber(),tempList.get(i).getName(),Long.valueOf(numAccText.getText()),nameText.getText(),tempList.get(j).getBalance(),false,tempList.get(j).getCurrency());
                 tempTransList.add(0,newT2);
                 tempList.get(j).setTransacionList(tempTransList);
                 break;

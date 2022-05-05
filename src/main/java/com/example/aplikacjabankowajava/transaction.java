@@ -9,19 +9,16 @@ public class transaction implements Serializable {
     String number;
     Float amount;
     String title;
-    String comment;
     String date;
     Long firstAcc;
     String firstAccName;
     Long secondAcc;
     String secondAccName;
+    Float newBalance;
+    boolean transactionType;
+    String currency;
 
-    transaction(Float amount,String title, Long senderAcc, String senderName,Long receiverAcc,String receiverName, String comment)
-    {
-        this(amount,title,senderAcc,senderName,receiverAcc,receiverName);
-        this.comment=comment;
-    }
-    transaction(Float amount,String title, Long senderAcc, String senderName,Long receiverAcc, String receiverName)
+    transaction(Float amount,String title, Long senderAcc, String senderName,Long receiverAcc, String receiverName, Float newBalance, boolean transactionType, String currency)
     {
         this.date = generateDate();
         this.number = generateTransaction();
@@ -31,7 +28,9 @@ public class transaction implements Serializable {
         this.firstAccName = senderName;
         this.secondAcc = receiverAcc;
         this.secondAccName = receiverName;
-        this.comment = "";
+        this.newBalance = newBalance;
+        this.transactionType = transactionType;
+        this.currency = currency;
     }
     private String generateDate()
     {
@@ -54,12 +53,28 @@ public class transaction implements Serializable {
         this.amount = amount;
     }
 
-    public String getComment() {
-        return comment;
+    public Float getAmount() {
+        return amount;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+
+    public Float getNewBalance() {
+        return newBalance;
+    }
+
+    public void setNewBalance(Float newBalance) {
+        this.newBalance = newBalance;
+    }
+
+    public boolean isTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(boolean transactionType) {
+        this.transactionType = transactionType;
     }
 
     public String getNumber() {
@@ -115,5 +130,13 @@ public class transaction implements Serializable {
 
     public void setSecondAccName(String secondAccName) {
         this.secondAccName = secondAccName;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

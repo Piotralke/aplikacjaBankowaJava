@@ -136,12 +136,8 @@ public class userController {
         }
 
         welcomeLabel.setText("Witaj " + user.getName());
-        balanceLabel.setText(user.getBalance().toString() + user.getCurrency());
+        balanceLabel.setText(String.format("%.02f", user.getBalance()) + user.getCurrency());
         numerKonta.setText("Numer konta: " + user.getAccNumber());
-        //label.setMinWidth();
-        //label.setMinHeight();
-        //label.setLayoutX(40);
-        //label.setLayoutY(40);
     }
 
     @FXML
@@ -149,7 +145,13 @@ public class userController {
         ArrayList<transaction> transactions = user.getTransacionList();
         for(int i=0;i<transactions.size();i++)
         {
-            transactionList.getItems().add(transactions.get(i).getBalance() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName() );
+            if(transactions.get(i).isTransactionType()){
+                transactionList.getItems().add("-" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName());
+            }
+            else{
+                transactionList.getItems().add("+" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() +"\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getFirstAccName() );
+            }
+
         }
         transactionList.setOnMouseClicked(event -> {
             if(event.getClickCount()==2)

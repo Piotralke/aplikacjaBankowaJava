@@ -22,10 +22,10 @@ public class currencyConverter {
                     System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode());
                     if(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode().equals(outputCurrency))
                     {
-                        System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(i).getMid());
+                        System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
                         return balance / Float.valueOf((float) arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
                     }
-                    else if(j == arrayERT.getExchangeRatesTables().size() - 1)
+                    else if(i == arrayERT.getExchangeRatesTables().size() - 1)
                     {
                         return convertCurrencyB(balance, inputCurrency, outputCurrency);
                     }
@@ -48,7 +48,7 @@ public class currencyConverter {
                         {
                             return result;
                         }
-                        else if(j == arrayERT.getExchangeRatesTables().size() - 1)
+                        else if(i == arrayERT.getExchangeRatesTables().size() - 1)
                         {
                             return convertCurrencyB(balance, inputCurrency, outputCurrency);
                         }
