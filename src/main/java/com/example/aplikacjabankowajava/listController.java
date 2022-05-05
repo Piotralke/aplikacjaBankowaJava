@@ -28,13 +28,15 @@ public class listController {
 
         for(int i=0;i<userList.size();i++)
         {
-
                 if(idB.equals("changeButton")&& serialization.deserializeManager("manager.txt")) {
                     listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
-                }else if(idB.equals("creditButton")){
-
-                }
-                else if(!userList.get(i).isAdminAccess()){
+                }else if(idB.equals("creditButton") && !userList.get(i).isAdminAccess()) {
+                    if(!userList.get(i).getCreditList().isEmpty()){
+                        if(userList.get(i).getCreditList().get(0).getStatus().equals("Oczekujący")){
+                            listView.getItems().add(userList.get(i).getLogin() +"\t\t\t\t\t\t" + userList.get(i).getCreditList().get(0).getNumber());
+                        }
+                    }
+                }else if(!userList.get(i).isAdminAccess()){
                     listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
                 }
             }
@@ -53,7 +55,7 @@ public class listController {
                                 switchToChanges(loginT);
                                 break;
                             case "creditButton":
-                                //switchToCredit(loginT);
+                                switchToCreditAccept(loginT);
                                 break;
                             case "depositButton":
                                 switchToTransfer(loginT);
@@ -95,6 +97,34 @@ public class listController {
         root=loader.load();
         changeController changeController = loader.getController();
         changeController.init(login);
+        stage = (Stage)listView.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToProperties(transaction transaction) throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionProperties.fxml"));
+        root=loader.load();
+        transactionPropertiesController transactionPropertiesController = loader.getController();
+        transactionPropertiesController.init(transaction);
+        stage = (Stage)listView.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    public void switchToCreditAccept(String login) throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("creditProperties.fxml"));
+        root=loader.load();
+        ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
+        int i;
+        for(i=0;i<tempList.size();i++){
+            if(tempList.get(i).getLogin().equals(Long.valueOf(login)))
+                break;
+        }
+        creditPropertiesController creditPropertiesController = loader.getController();
+        creditPropertiesController.init(tempList.get(i).getCreditList().get(0),true);
         stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

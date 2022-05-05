@@ -41,7 +41,7 @@ public class transferController {
         Long loginT = Long.valueOf(serialization.deserializeString("login.txt"));
         for(int i=0;i<tempList.size();i++){
             if(loginT.equals(tempList.get(i).getLogin())) {
-                ballanceLabel.setText("Twój stan konta:\n"+tempList.get(i).getBalance().toString()+tempList.get(i).getCurrency());
+                ballanceLabel.setText("Twój stan konta:\n"+String.format("%.02f",tempList.get(i).getBalance())+tempList.get(i).getCurrency());
                 break;
             }
         }

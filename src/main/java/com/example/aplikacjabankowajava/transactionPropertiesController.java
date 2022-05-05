@@ -53,7 +53,7 @@ public class transactionPropertiesController {
             amountText.setText("Kwota operacji:\n"+ "+" + String.format("%.02f", transaction.getBalance())+ transaction.getCurrency());
             typeLabel.setText("Typ transakcji:\nPrzychodząca");
         }
-        if(transaction.getFirstAcc().equals(null))
+        if(transaction.getFirstAcc()==null)
         {
             senderAcc.setText("");
         }

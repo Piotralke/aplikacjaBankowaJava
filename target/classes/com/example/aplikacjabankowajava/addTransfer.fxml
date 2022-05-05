@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.adminTransferController">
+   <children>
+      <HBox>
+         <children>
+            <Button mnemonicParsing="false" onAction="#goBack" text="Powrót" />
+            <AnchorPane prefHeight="400.0" prefWidth="505.0">
+               <children>
+                  <TextField fx:id="amountText" layoutX="88.0" layoutY="122.0" />
+                  <Button fx:id="transferButton" layoutX="194.0" layoutY="175.0" mnemonicParsing="false" onAction="#transfer" text="Dodaj wpłate" />
+                  <Label layoutX="155.0" layoutY="14.0" text="NOWA WPŁATA">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="55.0" layoutY="126.0" text="Kwota" />
+                  <ChoiceBox fx:id="currencyBox" layoutX="253.0" layoutY="122.0" prefWidth="150.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

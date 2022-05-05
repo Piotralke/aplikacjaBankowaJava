@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.creditPropertiesController">
+    <children>
+        <Button fx:id="back" mnemonicParsing="false" onAction="#goBack" text="Powrót" />
+        <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="creditNumberText" layoutX="14.0" layoutY="14.0" text="Kredyt ...">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameText" layoutX="14.0" layoutY="57.0" text="Imię i nazwisko,wiek">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="amountText" layoutX="14.0" layoutY="121.0" text="Kwota kredytu">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="instalmentText" layoutX="11.0" layoutY="189.0" text="Wysokość raty">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="dateText" layoutX="469.0" text="Data zawarcie">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="purposeText" layoutX="301.0" layoutY="61.0" text="Przeznaczenie">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="interestText" layoutX="300.0" layoutY="189.0" text="Oprocentowanie">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="periodText" layoutX="301.0" layoutY="121.0" text="Okres spłaty">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="peopleText" layoutX="300.0" layoutY="268.0" text="Ilość osób">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Button disable="true" layoutX="396.0" layoutY="361.0" mnemonicParsing="false" text="Generuj raty do pliku" visible="false" />
+            <Label fx:id="earningsText" layoutX="11.0" layoutY="268.0" text="Średnie zarobki">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="expensesText" layoutX="8.0" layoutY="331.0" text="Średnie wydatki">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="statusText" layoutX="160.0" text="Status">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="acceptB" disable="true" layoutX="500.0" layoutY="124.0" mnemonicParsing="false" onAction="#accept" text="Autoryzuj" visible="false" />
+            <Button fx:id="declineB" disable="true" layoutX="506.0" layoutY="200.0" mnemonicParsing="false" onAction="#decline" text="Odrzuć" visible="false" />
+            <Label fx:id="riskText" layoutX="524.0" layoutY="160.0" text="Wskaźnik ryzyka" visible="false" />
+         </children>
+        </AnchorPane>
+    </children>
+</VBox>

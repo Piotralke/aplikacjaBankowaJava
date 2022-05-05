@@ -6,12 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.testng.annotations.IDataProviderAnnotation;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,6 +34,11 @@ public class addController {
     @FXML
     private ChoiceBox countryChoice;
     @FXML
+    private DatePicker datePicker;
+    @FXML
+    private Button button;
+
+    @FXML
     protected void goBack(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("panelAdmin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -43,17 +49,26 @@ public class addController {
 
     @FXML
     protected void addUser() throws IOException, ClassNotFoundException {
-        ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
 
-        user tempUser = new user(name.getText(), surname.getText(), Long.valueOf(login.getText()), password.getText(), isadmin.isSelected(), countryChoice.getSelectionModel().getSelectedItem().toString(), false);
+        ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
+        user tempUser = new user(name.getText(), surname.getText(), Long.valueOf(login.getText()), password.getText(), isadmin.isSelected(), countryChoice.getSelectionModel().getSelectedItem().toString(), false, datePicker.getValue());
         tempList.add(tempUser);
         serialization.serializeUserList("data.txt",tempList);
         tempList = new ArrayList<>();
     }
 
     public void init(boolean manager) throws IOException, ClassNotFoundException {
+        datePicker.getEditor().textProperty().addListener(observable ->{
+            if(datePicker.getValue().isBefore(LocalDate.now().minus(18, ChronoUnit.YEARS)))
+                button.setDisable(false);
+            else
+                button.setDisable(true);
+        });
+
+        button.setDisable(true);
         if(manager)
             isadmin.setVisible(true);
+        datePicker.setValue(LocalDate.now());
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         Random rand = new Random();
         Long tempL = 10000000+rand.nextLong(89999999);

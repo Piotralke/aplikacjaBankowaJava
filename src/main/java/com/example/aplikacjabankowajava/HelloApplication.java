@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import models.tables.ArrayOfExchangeRatesTable;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -29,9 +30,9 @@ public class HelloApplication extends Application {
         stage.show();
         countryHashMap.init();
         //ArrayList<user> userArrayList = new ArrayList<>();
-        //user admin = new user("admin","admin",12345678l,"admin",true,"Poland",true);
-        //user admin2 = new user("admin2","admin2",12345679l,"admin2",true,"Germany",false);
-        //user user1 = new user("Michal","Mlodawski",69696969l,"java",false,"United States",false);
+        //user admin = new user("admin","admin",12345678l,"admin",true,"Polska",true,LocalDate.parse("2000-12-10") );
+        //user admin2 = new user("admin2","admin2",12345679l,"admin2",true,"Niemcy",false,LocalDate.parse("2000-12-10"));
+        //user user1 = new user("Michal","Mlodawski",69696969l,"java",false,"Stany Zjednoczone",false,LocalDate.parse("2000-12-10"));
         //user1.setBalance(2137.0f);
         //userArrayList.add(admin);
         //userArrayList.add(admin2);

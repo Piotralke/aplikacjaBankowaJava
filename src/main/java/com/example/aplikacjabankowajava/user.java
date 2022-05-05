@@ -4,6 +4,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -26,10 +28,12 @@ public class user implements Serializable {
     private ArrayList<transaction> transacionList = new ArrayList<>();
     private boolean active;
     private boolean manager;
+    private LocalDate birthday;
+    private ArrayList<credit> creditList = new ArrayList<>();
 
     public user() {
     }
-    public user(String name, String surname, Long login, String password, boolean adminAccess, String country, boolean manager){
+    public user(String name, String surname, Long login, String password, boolean adminAccess, String country, boolean manager, LocalDate birthday){
         this.name=name;
         this.surname=surname;
         this.login=login;
@@ -41,6 +45,7 @@ public class user implements Serializable {
         this.currency = countryHashMap.getCurrency(country);
         this.active = false;
         this.manager = manager;
+        this.birthday = birthday;
     }
     @Serial
     private void writeObject(ObjectOutputStream oos) throws Exception {
@@ -118,11 +123,28 @@ public class user implements Serializable {
     public void setActive(boolean active) {this.active = active;}
     public boolean isManager() {return manager;}
     public void setManager(boolean manager) {this.manager = manager;}
+    public LocalDate getBirthday() {return birthday;}
+    public void setBirthday(LocalDate birthday) {this.birthday = birthday;}
+    public int getAge(){
+         int age=LocalDate.now().getYear()-birthday.getYear();
+         if(LocalDate.now().minus(age, ChronoUnit.YEARS).isAfter(birthday))
+             return age;
+         else
+             return age-1;
+    }
 
     public ArrayList<transaction> getTransacionList() {
         return transacionList;
     }
     public void setTransacionList(ArrayList<transaction> transacionList) {
         this.transacionList = transacionList;
+    }
+
+    public ArrayList<credit> getCreditList() {
+        return creditList;
+    }
+
+    public void setCreditList(ArrayList<credit> creditList) {
+        this.creditList = creditList;
     }
 }

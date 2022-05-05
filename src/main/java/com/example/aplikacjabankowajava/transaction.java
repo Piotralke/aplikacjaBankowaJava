@@ -41,8 +41,8 @@ public class transaction implements Serializable {
     private String generateTransaction()
     {
         Random rand = new Random();
-        int temp = 1000+rand.nextInt(8999);
-        StringBuilder stringBuilder = new StringBuilder().append(this.date.substring(0,3)).append(temp).append(this.date.charAt(5)+this.date.charAt(8));
+        int temp = 10000+rand.nextInt(89999);
+        StringBuilder stringBuilder = new StringBuilder().append("TR/").append(this.date.substring(0,4)).append(temp).append(this.date.substring(5,7)+this.date.substring(8,10));
         return stringBuilder.toString();
     }
     public Float getBalance() {

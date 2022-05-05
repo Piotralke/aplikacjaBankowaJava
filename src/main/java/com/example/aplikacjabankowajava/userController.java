@@ -210,6 +210,28 @@ public class userController {
         stage.show();
     }
 
+    public void switchToCredit() throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("creditUser.fxml"));
+        root=loader.load();
+        creditController creditController = loader.getController();
+        creditController.init();
+        stage = (Stage)transactionList.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCreditworthiness() throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("creditworthinessUser.fxml"));
+        root=loader.load();
+        creditworthinessController creditworthinessController = loader.getController();
+        creditworthinessController.init();
+        stage = (Stage)transactionList.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void logOut(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("panelLogowania.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -33,6 +34,8 @@ public class changeController {
     @FXML
     private ChoiceBox countryChoice;
     @FXML
+    private DatePicker datePicker;
+    @FXML
     private CheckBox isadmin;
     private int i;
     private String currency;
@@ -57,6 +60,7 @@ public class changeController {
                     countryChoice.getItems().add(countryArray[j]);
                 }
                 countryChoice.setValue(tempList.get(i).getCountry());
+                datePicker.setValue(tempList.get(i).getBirthday());
                 //countryChoice.setDisable(true);
                 break;
             }
