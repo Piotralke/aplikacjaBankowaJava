@@ -38,11 +38,19 @@ public class transactionPropertiesController {
     public void init(transaction transaction){
         transactionNumberText.setText("Transakcja nr. "+transaction.getNumber());
         titleText.setText("Tytuł transakcji:\n"+transaction.getTitle());
-        amountText.setText("Kwota operacji:\n"+transaction.getBalance().toString());
+        amountText.setText("Kwota operacji:\n"+ String.format("%.02f", transaction.getBalance().toString()));
         dateText.setText("Data operacji:\n"+transaction.getDate());
         senderName.setText("Nadawca:\n"+transaction.getFirstAccName());
         receiverName.setText("Odbiorca:\n"+transaction.getSecondAccName());
-        senderAcc.setText("Nr konta nadawcy\n"+transaction.getFirstAcc().toString());
+        if(transaction.getFirstAcc().equals(null))
+        {
+            senderAcc.setText("");
+        }
+        else
+        {
+            senderAcc.setText("Nr konta nadawcy\n"+transaction.getFirstAcc().toString());
+        }
+
         receiverAcc.setText("Nr konta odbiorcy\n"+transaction.getSecondAcc().toString());
 
     }

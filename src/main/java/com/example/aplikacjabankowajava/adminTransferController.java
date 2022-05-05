@@ -28,8 +28,14 @@ public class adminTransferController {
 
     public void init(){
         String[] valueArray = countryHashMap.getValues();
+        ArrayList<String> newArray = new ArrayList<>();
         for(int j=0; j<valueArray.length;j++) {
-            currencyBox.getItems().add(valueArray[j]);
+            if(!newArray.contains(valueArray[j]))
+            {
+                newArray.add(valueArray[j]);
+                currencyBox.getItems().add(valueArray[j]);
+            }
+
         }
         currencyBox.setValue("PLN");
         transferButton.setDisable(true);
