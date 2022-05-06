@@ -119,12 +119,15 @@ public class transactionPropertiesController {
         contentStream.newLineAtOffset( 100, rect.getHeight() -  15*(++line));
         contentStream.showText("Nadawca:  " + tempT.getFirstAccName());
         contentStream.endText();
-        line+=2;
-        contentStream.beginText();
-        contentStream.setFont(font, 20);
-        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
-        contentStream.showText("Numer konta nadawcy:  " + tempT.getFirstAcc());
-        contentStream.endText();
+        if(tempT.getFirstAcc()!=null)
+        {
+            line+=2;
+            contentStream.beginText();
+            contentStream.setFont(font, 20);
+            contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+            contentStream.showText("Numer konta nadawcy:  " + tempT.getFirstAcc());
+            contentStream.endText();
+        }
 
         line+=6;
         contentStream.beginText();
@@ -133,40 +136,50 @@ public class transactionPropertiesController {
         contentStream.showText("Odbiorca:  " + tempT.getSecondAccName());
         contentStream.endText();
 
-        line+=2;
-        contentStream.beginText();
-        contentStream.setFont(font, 20);
-        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
-        contentStream.showText("Numer konta odbiorcy:  " + tempT.getSecondAcc());
-        contentStream.endText();
+        if(tempT.getSecondAcc()!=null)
+        {
+            line+=2;
+            contentStream.beginText();
+            contentStream.setFont(font, 20);
+            contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+            contentStream.showText("Numer konta odbiorcy:  " + tempT.getSecondAcc());
+            contentStream.endText();
+        }
 
-        line+=2;
+        line+=6;
         contentStream.beginText();
         contentStream.setFont(font, 20);
-        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  25*(++line));
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  15*(++line));
         contentStream.showText("Tytuł przelewu:  " + tempT.getTitle());
         contentStream.endText();
         line+=2;
         contentStream.beginText();
         contentStream.setFont(font, 20);
-        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  25*(++line));
-        contentStream.showText("Data:  " + tempT.getDate());
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  15*(++line));
+        contentStream.showText("Kwota:  " + String.format("%.02f",tempT.getAmount())+tempT.getCurrency());
         contentStream.endText();
         line+=2;
         contentStream.beginText();
         contentStream.setFont(font, 20);
-        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  25*(++line));
-        contentStream.showText("Kwota:  " + tempT.getAmount()+tempT.getCurrency());
-        contentStream.endText();
-        line+=2;
-        contentStream.beginText();
-        contentStream.setFont(font, 20);
-        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  25*(++line));
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  15*(++line));
         if(tempT.isTransactionType()){
             contentStream.showText("Typ operacji:  Przelew wychodzący");
         }else{
             contentStream.showText("Typ operacji:  Przelew przychodzący");
         }
+        contentStream.endText();
+        line+=8;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.65), rect.getHeight() -  15*(++line));
+        contentStream.showText("Data:  ");
+        contentStream.endText();
+        line+=2;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.65), rect.getHeight() -  15*(++line));
+        contentStream.showText(tempT.getDate());
+
         contentStream.endText();
         contentStream.close();
 

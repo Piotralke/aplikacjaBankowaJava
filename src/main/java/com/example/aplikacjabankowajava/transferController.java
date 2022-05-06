@@ -15,6 +15,7 @@ import org.testng.internal.collections.Pair;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class transferController {
 
@@ -48,6 +49,7 @@ public class transferController {
             if(loginT.equals(tempList.get(i).getLogin())) {
                 ballanceLabel.setText("Twój stan konta:\n"+String.format("%.02f",tempList.get(i).getBalance())+tempList.get(i).getCurrency());
                 if(!tempList.get(i).getContactList().isEmpty()){
+                    contactView.getItems().clear();
                     for(int j=0;j<tempList.get(i).getContactList().size();j++){
                         contactView.getItems().add(tempList.get(i).getContactList().get(j).getKey()+"\t"+tempList.get(i).getContactList().get(j).getValue());
                     }
@@ -113,7 +115,7 @@ public class transferController {
         boolean userIsOnList = false;
         if(!tempList.get(i).getContactList().isEmpty()){
             for(int k=0;k<tempList.get(i).getContactList().size();k++){
-                if(tempList.get(i).getContactList().get(k).getKey()==Long.valueOf(numAccText.getText())){
+                if(Objects.equals(tempList.get(i).getContactList().get(k).getKey(), Long.valueOf(numAccText.getText()))){
                     userIsOnList=true;
                     break;
                 }

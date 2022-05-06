@@ -9,7 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -109,12 +116,7 @@ public class creditPropertiesController {
         dateText.setText("Data zawarcia:\n" + credit.getDate());
         purposeText.setText("Przeznaczenie:\n" + credit.getPurpose());
         interestText.setText("Oprocentowanie:\n6.9%");
-        periodText.setText("Okres spłaty:\n" + credit.getPeriod());
-    }
-
-    @FXML
-    protected  void generate(){
-
+        periodText.setText("Okres spłaty:\n" + credit.getPeriod() + "Msc.");
     }
 
     @FXML
@@ -203,5 +205,98 @@ public class creditPropertiesController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    @FXML
+    protected void generate() throws IOException {
+        PDDocument document = new PDDocument();
+        PDPage firstPage = new PDPage();
+        document.addPage(firstPage);
+        PDRectangle rect = firstPage.getMediaBox();
+        PDPageContentStream contentStream = new PDPageContentStream(document, firstPage);
+
+        PDType0Font font = PDType0Font.load(document, new File("src/main/resources/arial.ttf"));
+        PDType0Font fontBold = PDType0Font.load(document, new File("src/main/resources/arialbd.ttf"));
+
+        int line = 0;
+        PDImageXObject pdfImage = PDImageXObject.createFromFile("src/main/resources/logo.png", document);
+        contentStream.drawImage(pdfImage, 0,  rect.getHeight()- 100*(++line), 100,100);
+
+
+
+        contentStream.beginText();
+        contentStream.setFont(fontBold, 30);
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  25*(++line));
+        contentStream.showText("Szczegóły kredytu:");
+        contentStream.endText();
+
+
+        contentStream.beginText();
+        contentStream.setFont(fontBold, 30);
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.25), rect.getHeight() -  25*(++line));
+        contentStream.showText(tempC.getNumber());
+        contentStream.endText();
+
+        line+=8;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset( 100, rect.getHeight() -  15*(++line));
+        contentStream.showText("Kredytobiorca:  " + tempC.getName() + " " + tempC.getSurname());
+        contentStream.endText();
+        line+=2;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+        contentStream.showText("Numer konta kredytobiorcy:  " + tempC.getNumAcc());
+        contentStream.endText();
+        line+=2;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+        contentStream.showText("Przeznaczenie:  " + tempC.getPurpose());
+        contentStream.endText();
+
+        line+=6;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+        contentStream.showText("Kwota kredytu:  " + String.format("%.02f", tempC.getAmount()) + tempC.getCurrency());
+        contentStream.endText();
+
+        line+=2;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+        contentStream.showText("Okres spłaty/ilość rat:  " + tempC.getPeriod() + "Msc.");
+        contentStream.endText();
+        line+=2;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+        contentStream.showText("Wysokość raty:  " + String.format("%.02f",tempC.getInstalment()) + tempC.getCurrency());
+        contentStream.endText();
+        line+=2;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset(100, rect.getHeight() -  15*(++line));
+        contentStream.showText("Oprocentowanie:  6.9%");
+        contentStream.endText();
+
+        line+=12;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.65), rect.getHeight() -  15*(++line));
+        contentStream.showText("Data zawarcia:  ");
+        contentStream.endText();
+        line+=2;
+        contentStream.beginText();
+        contentStream.setFont(font, 20);
+        contentStream.newLineAtOffset((float) (rect.getWidth()*0.65), rect.getHeight() -  15*(++line));
+        contentStream.showText(tempC.getDate());
+        contentStream.endText();
+
+        contentStream.close();
+
+        document.save("src/pobrane/"+tempC.getNumber()+".pdf");
+        document.close();
     }
 }

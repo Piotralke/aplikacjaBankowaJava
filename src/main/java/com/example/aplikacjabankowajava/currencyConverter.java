@@ -19,10 +19,10 @@ public class currencyConverter {
             {
                 for(int j=0;j<arrayERT.getExchangeRatesTables().get(i).getRates().size();j++)
                 {
-                    System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode());
+                   // System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode());
                     if(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode().equals(outputCurrency))
                     {
-                        System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
+                      //  System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
                         return balance / Float.valueOf((float) arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
                     }
                 }
@@ -35,10 +35,10 @@ public class currencyConverter {
             {
                 for(int j=0;j<arrayERT.getExchangeRatesTables().get(i).getRates().size();j++)
                 {
-                    System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode());
+                   // System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode());
                     if(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode().equals(inputCurrency))
                     {
-                        System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
+                      //  System.out.println(arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
                         Float result = balance * Float.valueOf((float) arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
                         if(outputCurrency.equals("PLN"))
                         {

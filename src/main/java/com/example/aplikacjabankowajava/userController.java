@@ -279,6 +279,27 @@ public class userController {
         stage.show();
     }
 
+    public void switchToExchange() throws IOException, ClassNotFoundException {
+        String login = serialization.deserializeString("login.txt");
+        ArrayList<user> userList = serialization.deserializeUserList("data.txt");
+        int j;
+        for(j = 0;j<userList.size()-1;j++)
+        {
+            if(userList.get(j).getLogin().equals(Long.valueOf(login)))
+            {
+                break;
+            }
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("exchangeList.fxml"));
+        root=loader.load();
+        exchangeController exchangeController = loader.getController();
+        exchangeController.init(userList.get(j).getCurrency());
+        stage = (Stage)listView.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void switchToTransfer() throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newTransfer.fxml"));
         root=loader.load();
