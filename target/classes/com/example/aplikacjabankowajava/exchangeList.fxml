@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.listController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aplikacjabankowajava.exchangeController">
    <children>
       <Button fx:id="back" mnemonicParsing="false" onAction="#goBack" text="Powrót" />
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
@@ -13,6 +13,7 @@
                   <ListView fx:id="listView" prefHeight="362.0" prefWidth="573.0" />
                </children>
             </AnchorPane>
+            <Label fx:id="exchangeText" layoutX="122.0" layoutY="-9.0" text="Kurs waluty..." />
          </children>
       </AnchorPane>
    </children>
