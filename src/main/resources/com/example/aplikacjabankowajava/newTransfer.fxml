@@ -31,7 +31,7 @@
                   <Label layoutX="200.0" layoutY="250.0" text="Kwota" />
                   <Label fx:id="ballanceLabel" layoutY="28.0" text="Twój stan konta:" />
                   <Label layoutX="180.0" layoutY="130.0" text="Imie odbiorcy" />
-                  <ListView fx:id="contactLView" layoutX="328.0" layoutY="52.0" prefHeight="339.0" prefWidth="198.0" />
+                  <ListView fx:id="contactView" layoutX="328.0" layoutY="52.0" prefHeight="339.0" prefWidth="198.0" />
                </children>
             </AnchorPane>
          </children>

@@ -1,6 +1,6 @@
 package com.example.aplikacjabankowajava;
 
-import org.testng.internal.collections.Pair;
+import javafx.util.Pair;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -32,7 +32,8 @@ public class user implements Serializable {
     private boolean manager;
     private LocalDate birthday;
     private ArrayList<credit> creditList = new ArrayList<>();
-    private ArrayList<Pair<Long,String>> contactList = new ArrayList<>();
+    //private ArrayList<Pair<Long,String>> contactList = new ArrayList<>();
+    private ArrayList<javafx.util.Pair<Long,String>> contactList = new ArrayList<>();
 
     public user() {
     }
