@@ -182,8 +182,10 @@ public class transactionPropertiesController {
 
         contentStream.endText();
         contentStream.close();
-
-        document.save("src/pobrane/"+tempT.getNumber()+".pdf");
+        if(tempT.isTransactionType())
+            document.save("src/pobrane/"+tempT.getNumber()+"w.pdf");
+        else
+            document.save("src/pobrane/"+tempT.getNumber()+"p.pdf");
         document.close();
     }
 

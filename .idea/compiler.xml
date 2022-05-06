@@ -9,8 +9,5 @@
         <module name="aplikacjaBankowaJava" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="aplikacjaBankowaJava" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

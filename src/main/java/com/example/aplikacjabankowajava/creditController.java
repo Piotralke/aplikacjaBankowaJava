@@ -61,11 +61,27 @@ public class creditController {
             check();
         });
         amountText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue.trim().isEmpty()){
-                checkAmount=Float.valueOf(newValue)>0.0f;
-            } else
-                checkAmount=false;
-            check();
+            try{
+                String login = serialization.deserializeString("login.txt");
+                ArrayList<user> userList = serialization.deserializeUserList("data.txt");
+                int j;
+                for(j = 0;j<userList.size()-1;j++)
+                {
+                    if(userList.get(j).getLogin().equals(Long.valueOf(login)))
+                    {
+                        break;
+                    }
+                }
+                if(!newValue.trim().isEmpty()){
+                    checkAmount = Float.valueOf(newValue)>0.0f && currencyConverter.convertCurrency(Float.valueOf(newValue),userList.get(j).getCurrency(),"PLN")<10000000.0f;
+                } else
+                    checkAmount=false;
+                check();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         });
         periodText.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()){
@@ -76,7 +92,7 @@ public class creditController {
         });
         earningsText.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()){
-                checkEarnings = Float.valueOf(newValue)>0.0f;
+                checkEarnings=Float.valueOf(newValue)>0.0f;
             } else
                 checkEarnings=false;
             check();
