@@ -25,10 +25,11 @@ public class listController {
         String idB=serialization.deserializeString("button.txt"); //tu mamy fx:id przycisku ktory wywolal nasza akcje wiec po tym mozemy dostowac rzeczy wyswietlane w listView :)
 
         ArrayList<user> userList = serialization.deserializeUserList("data.txt");
-
+        listView.getItems().clear();
         for(int i=0;i<userList.size();i++)
         {
-                if(idB.equals("changeButton")&& serialization.deserializeManager("manager.txt")) {
+
+                if((idB.equals("changeButton") || idB.equals("deleteButton"))&& serialization.deserializeManager("manager.txt")) {
                     listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
                 }else if(idB.equals("creditButton") && !userList.get(i).isAdminAccess()) {
                     if(!userList.get(i).getCreditList().isEmpty()){
@@ -36,7 +37,7 @@ public class listController {
                             listView.getItems().add(userList.get(i).getLogin() +"\t\t\t\t\t\t" + userList.get(i).getCreditList().get(0).getNumber());
                         }
                     }
-                }else if(!userList.get(i).isAdminAccess()){
+                } else if(!userList.get(i).isAdminAccess()){
                     listView.getItems().add(userList.get(i).getLogin() + "\t\t\t\t\t\t" + userList.get(i).getName() +" " + userList.get(i).getSurname() );
                 }
             }
@@ -59,6 +60,9 @@ public class listController {
                                 break;
                             case "depositButton":
                                 switchToTransfer(loginT);
+                                break;
+                            case"deleteButton":
+                                deleteUser(loginT);
                                 break;
                         }
                     }catch (IOException | ClassNotFoundException e) {
@@ -103,16 +107,6 @@ public class listController {
         stage.show();
     }
 
-    public void switchToProperties(transaction transaction) throws IOException, ClassNotFoundException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionProperties.fxml"));
-        root=loader.load();
-        transactionPropertiesController transactionPropertiesController = loader.getController();
-        transactionPropertiesController.init(transaction);
-        stage = (Stage)listView.getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
     @FXML
     public void switchToCreditAccept(String login) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("creditProperties.fxml"));
@@ -142,5 +136,17 @@ public class listController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    protected void deleteUser(String login) throws IOException, ClassNotFoundException {
+        ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
+        int i;
+        for(i=0;i<tempList.size();i++){
+            if(tempList.get(i).getLogin().equals(Long.valueOf(login)))
+                break;
+        }
+        tempList.remove(i);
+        serialization.serializeUserList("data.txt",tempList);
+        initList();
     }
 }

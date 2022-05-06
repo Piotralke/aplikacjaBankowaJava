@@ -28,10 +28,6 @@ public class adminController {
     }
 
     @FXML
-    private void deleteUser(){
-
-    }
-
     public void switchToList(ActionEvent event) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("userList.fxml"));
         root=loader.load();

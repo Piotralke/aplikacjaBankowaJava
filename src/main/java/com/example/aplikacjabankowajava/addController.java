@@ -55,12 +55,10 @@ public class addController {
 
     @FXML
     protected void addUser() throws IOException, ClassNotFoundException {
-
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         user tempUser = new user(name.getText(), surname.getText(), Long.valueOf(login.getText()), password.getText(), isadmin.isSelected(), countryChoice.getSelectionModel().getSelectedItem().toString(), false, datePicker.getValue());
         tempList.add(tempUser);
         serialization.serializeUserList("data.txt",tempList);
-        tempList = new ArrayList<>();
     }
 
     private void check(){
@@ -68,6 +66,7 @@ public class addController {
     }
     public void init(boolean manager) throws IOException, ClassNotFoundException {
         checkLogin=true;
+        //check();
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         Random rand = new Random();
         Long tempL = 10000000+rand.nextLong(89999999);
@@ -91,7 +90,7 @@ public class addController {
             checkLogin= newValue.length() == 8;
             check();
         });
-        login.textProperty().addListener((observable, oldValue, newValue) -> {
+        password.textProperty().addListener((observable, oldValue, newValue) -> {
             checkPassword= !newValue.trim().isEmpty();
             check();
         });
