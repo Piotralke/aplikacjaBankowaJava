@@ -29,7 +29,7 @@
                   <ChoiceBox fx:id="countryChoice" layoutX="14.0" layoutY="175.0" prefWidth="150.0" />
                   <DatePicker fx:id="datePicker" disable="true" layoutX="253.0" layoutY="175.0" />
                   <CheckBox fx:id="isadmin" layoutX="184.0" layoutY="258.0" mnemonicParsing="false" text="Czy pracownik banku?" visible="false" />
-                  <Button layoutX="376.0" layoutY="331.0" mnemonicParsing="false" onAction="#changeUser" text="Zmień" />
+                  <Button fx:id="button" layoutX="376.0" layoutY="331.0" mnemonicParsing="false" onAction="#changeUser" text="Zmień" />
                   <Label layoutX="256.0" layoutY="158.0" text="Data urodzenia" />
                </children>
             </AnchorPane>

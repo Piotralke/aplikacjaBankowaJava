@@ -38,9 +38,15 @@ public class creditController {
     private TextField expensesText;
     @FXML
     private Button button;
-
+    private boolean checkPurpose;
+    private boolean checkAmount;
+    private boolean checkPeriod;
+    private boolean checkEarnings;
+    private boolean checkPeople;
+    private boolean checkExpenses;
 
     public void init(){
+        button.setDisable(true);
         periodChoice.getItems().add("LAT");
         periodChoice.getItems().add("MSC");
 
@@ -49,8 +55,51 @@ public class creditController {
         }
         periodChoice.setValue("MSC");
         dayChoice.setValue(1);
+
+        purposeText.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkPurpose = !newValue.trim().isEmpty();
+            check();
+        });
+        amountText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkAmount=Float.valueOf(newValue)>0.0f;
+            } else
+                checkAmount=false;
+            check();
+        });
+        periodText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkPeriod = Integer.parseInt(newValue)>0&&Integer.parseInt(newValue)<300;
+            }else
+                checkPeriod=false;
+            check();
+        });
+        earningsText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkEarnings = Float.valueOf(newValue)>0.0f;
+            } else
+                checkEarnings=false;
+            check();
+        });
+        peopleText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkPeople=Integer.parseInt(newValue)>0;
+            } else
+                checkPeople=false;
+            check();
+        });
+        expensesText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkExpenses=Float.valueOf(newValue)>0.0f;
+            }else
+                checkExpenses=false;
+            check();
+        });
     }
 
+    protected  void check(){
+        button.setDisable(!checkPurpose || !checkAmount || !checkPeriod || !checkEarnings || !checkPeople || !checkExpenses);
+    }
     @FXML
     protected  void addCredit(ActionEvent event) throws IOException, ClassNotFoundException {
         String login = serialization.deserializeString("login.txt");

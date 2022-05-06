@@ -38,13 +38,48 @@ public class creditworthinessController {
     private Label maxLabel;
     @FXML
     private Label creditLabel;
+    private boolean checkPeriod;
+    private boolean checkEarnings;
+    private boolean checkPeople;
+    private boolean checkExpenses;
 
     public void init(){
+        button.setDisable(true);
         periodChoice.getItems().add("LAT");
         periodChoice.getItems().add("MSC");
         periodChoice.setValue("MSC");
+        periodText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkPeriod = Integer.parseInt(newValue)>0&&Integer.parseInt(newValue)<300;
+            }else
+                checkPeriod=false;
+            check();
+        });
+        earningsText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkEarnings = Float.valueOf(newValue)>0.0f;
+            } else
+                checkEarnings=false;
+            check();
+        });
+        peopleText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkPeople=Integer.parseInt(newValue)>0;
+            } else
+                checkPeople=false;
+            check();
+        });
+        expensesText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()){
+                checkExpenses=Float.valueOf(newValue)>0.0f;
+            }else
+                checkExpenses=false;
+            check();
+        });
     }
-
+    protected  void check(){
+        button.setDisable(!checkPeriod || !checkEarnings || !checkPeople || !checkExpenses);
+    }
     @FXML
     protected void calculate() throws IOException, ClassNotFoundException {
         int period = Integer.parseInt(periodText.getText());

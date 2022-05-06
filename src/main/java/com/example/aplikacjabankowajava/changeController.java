@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,9 +34,18 @@ public class changeController {
     private DatePicker datePicker;
     @FXML
     private CheckBox isadmin;
+    @FXML
+    private Button button;
     private int i;
     private String currency;
     private Float balance;
+
+    private boolean checkLogin;
+    private boolean checkName;
+    private boolean checkSurname;
+    private boolean checkAge;
+    private boolean checkPassword;
+
     public void init(String loginT) throws IOException, ClassNotFoundException {
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
 
@@ -54,6 +60,7 @@ public class changeController {
                 if(serialization.deserializeManager("manager.txt")){
                     isadmin.setVisible(true);
                     isadmin.setSelected(tempList.get(i).isAdminAccess());
+                    datePicker.setDisable(false);
                 }
                 String[] countryArray = countryHashMap.getCountries();
                 for(int j=0; j<countryArray.length;j++) {
@@ -66,12 +73,33 @@ public class changeController {
                     }
                 }
                 datePicker.setValue(tempList.get(i).getBirthday());
-                //countryChoice.setDisable(true);
+                datePicker.setDisable(true);
                 break;
             }
         }
+
+        login.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkLogin= newValue.length() == 8;
+            check();
+        });
+        password.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkPassword= !newValue.trim().isEmpty();
+            check();
+        });
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkName=!newValue.trim().isEmpty();
+            check();
+        });
+        surname.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkSurname=!newValue.trim().isEmpty();
+            check();
+        });
+
     }
 
+    protected void check(){
+        button.setDisable(!checkName || !checkAge || !checkLogin || !checkSurname || !checkPassword);
+    }
     @FXML
     protected void changeUser() throws IOException, ClassNotFoundException {
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
