@@ -4,6 +4,8 @@ module com.example.aplikacjabankowajava {
     requires org.jetbrains.annotations;
     requires org.testng;
     requires exchange.rates.nbp;
+    requires itextpdf;
+    requires pdfbox;
 
 
     opens com.example.aplikacjabankowajava to javafx.fxml;
