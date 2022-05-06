@@ -52,7 +52,7 @@ public class creditController {
     }
 
     @FXML
-    protected  void addCredit() throws IOException, ClassNotFoundException {
+    protected  void addCredit(ActionEvent event) throws IOException, ClassNotFoundException {
         String login = serialization.deserializeString("login.txt");
         ArrayList<user> userList = serialization.deserializeUserList("data.txt");
         int j;
@@ -71,6 +71,7 @@ public class creditController {
         tempL.add(0,newC);
         userList.get(j).setCreditList(tempL);
         serialization.serializeUserList("data.txt",userList);
+        goBack(event);
     }
 
     @FXML

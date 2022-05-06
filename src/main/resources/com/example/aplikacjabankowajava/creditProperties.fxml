@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -48,7 +49,6 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <Button disable="true" layoutX="396.0" layoutY="361.0" mnemonicParsing="false" text="Generuj raty do pliku" visible="false" />
             <Label fx:id="earningsText" layoutX="11.0" layoutY="268.0" text="Średnie zarobki">
                <font>
                   <Font size="20.0" />
@@ -67,6 +67,11 @@
             <Button fx:id="acceptB" disable="true" layoutX="500.0" layoutY="124.0" mnemonicParsing="false" onAction="#accept" text="Autoryzuj" visible="false" />
             <Button fx:id="declineB" disable="true" layoutX="506.0" layoutY="200.0" mnemonicParsing="false" onAction="#decline" text="Odrzuć" visible="false" />
             <Label fx:id="riskText" layoutX="524.0" layoutY="160.0" text="Wskaźnik ryzyka" visible="false" />
+            <Button fx:id="payB" disable="true" layoutX="329.0" layoutY="361.0" mnemonicParsing="false" onAction="#payInstalment" text="Spłać ratę" visible="false" />
+            <Button fx:id="generateB" disable="true" layoutX="396.0" layoutY="361.0" mnemonicParsing="false" onAction="#generate" text="Generuj raty do pliku" visible="false">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Button>
          </children>
         </AnchorPane>
     </children>

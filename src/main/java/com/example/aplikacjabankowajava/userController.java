@@ -26,17 +26,22 @@ public class userController {
 
     @FXML
     private Label welcomeLabel;
-
     @FXML
-    private ListView transactionList;
+    private ListView listView;
     @FXML
     private Label balanceLabel;
-
     @FXML
     private Label numerKonta;
-
     @FXML
     private Label clipboardAlert;
+    @FXML
+    private Button creditB;
+    @FXML
+    private Button transactionB;
+    @FXML
+    private Label listText;
+    @FXML
+    private Button newCreditB;
 
     private Stage stage;
     private Scene scene;
@@ -46,7 +51,7 @@ public class userController {
 
     public boolean isValid(String pass){
         boolean validation = true;
-        if (pass.length() > 15 || pass.length() < 8)
+        if (pass.length() > 20 || pass.length() < 8)
         {
             System.out.println("Password must be less than 20 and more than 8 characters in length.");
             validation = false;
@@ -80,6 +85,7 @@ public class userController {
 
     @FXML
     public void initUser(user user, int position){
+
         dialog.setTitle("Zmiana hasła");
         dialog.setHeaderText("Wymagana zmiana hasła!");
         ButtonType loginButtonType = new ButtonType("Zatwierdź", ButtonBar.ButtonData.OK_DONE);
@@ -138,33 +144,96 @@ public class userController {
         welcomeLabel.setText("Witaj " + user.getName());
         balanceLabel.setText(String.format("%.02f", user.getBalance()) + user.getCurrency());
         numerKonta.setText("Numer konta: " + user.getAccNumber());
+        if(!user.getCreditList().isEmpty()){
+            if((user.getCreditList().get(0).getStatus().equals("Oczekujący")) || (user.getCreditList().get(0).getStatus().equals("Zaakceptowany"))){
+                newCreditB.setDisable(true);
+            }
+        }
     }
 
     @FXML
-    public void initList(user user){
+    public void initList(user user) throws IOException, ClassNotFoundException {
         ArrayList<transaction> transactions = user.getTransacionList();
-        for(int i=0;i<transactions.size();i++)
-        {
-            if(transactions.get(i).isTransactionType()){
-                transactionList.getItems().add("-" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName());
-            }
-            else{
-                transactionList.getItems().add("+" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() +"\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getFirstAccName() );
-            }
-
+        if(!transactions.isEmpty()){
+            transactionB.setDisable(false);
+            loadTransactions();
+        }else if(!user.getCreditList().isEmpty()){
+            loadCredits();
         }
-        transactionList.setOnMouseClicked(event -> {
+        if(!user.getCreditList().isEmpty()){
+            creditB.setDisable(false);
+        }
+
+    }
+
+    @FXML
+    protected  void loadCredits() throws IOException, ClassNotFoundException {
+        listView.getItems().clear();
+        listText.setText("Kredyty");
+        String login = serialization.deserializeString("login.txt");
+        ArrayList<user> userList = serialization.deserializeUserList("data.txt");
+        int j;
+        for(j = 0;j<userList.size()-1;j++)
+        {
+            if(userList.get(j).getLogin().equals(Long.valueOf(login)))
+            {
+                break;
+            }
+        }
+        ArrayList<credit> credits = userList.get(j).getCreditList();
+        for(int i=0;i<credits.size();i++)
+        {
+            listView.getItems().add(credits.get(i).getNumber() + "\t\t\tStatus: " + credits.get(i).getStatus());
+        }
+        listView.setOnMouseClicked(event -> {
             if(event.getClickCount()==2)
             {
                 try {
-                    switchToProperties(transactions.get(transactionList.getSelectionModel().getSelectedIndex()));
+                    switchToPropertiesCredit(credits.get(listView.getSelectionModel().getSelectedIndex()));
                 } catch (IOException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
-
     }
+
+    @FXML
+    protected  void loadTransactions() throws IOException, ClassNotFoundException {
+        listView.getItems().clear();
+        listText.setText("Historia transakcji");
+        String login = serialization.deserializeString("login.txt");
+        ArrayList<user> userList = serialization.deserializeUserList("data.txt");
+        int j;
+        for(j = 0;j<userList.size()-1;j++)
+        {
+            if(userList.get(j).getLogin().equals(Long.valueOf(login)))
+            {
+                break;
+            }
+        }
+        ArrayList<transaction> transactions = userList.get(j).getTransacionList();
+        for(int i=0;i<transactions.size();i++)
+        {
+            if(transactions.get(i).isTransactionType()){
+                listView.getItems().add("-" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() + "\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getSecondAccName());
+            }
+            else{
+                listView.getItems().add("+" + String.format("%.02f", transactions.get(i).getBalance()) + transactions.get(i).getCurrency() +"\t\t" + transactions.get(i).getTitle() +"\t\t" + transactions.get(i).getFirstAccName() );
+            }
+
+        }
+        listView.setOnMouseClicked(event -> {
+            if(event.getClickCount()==2)
+            {
+                try {
+                    switchToPropertiesTransaction(transactions.get(listView.getSelectionModel().getSelectedIndex()));
+                } catch (IOException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
     @FXML
     public void toClipboard(){
         final Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -188,12 +257,23 @@ public class userController {
         },5000);
     }
 
-    public void switchToProperties(transaction transaction) throws IOException, ClassNotFoundException {
+    public void switchToPropertiesTransaction(transaction transaction) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactionProperties.fxml"));
         root=loader.load();
         transactionPropertiesController transactionPropertiesController = loader.getController();
         transactionPropertiesController.init(transaction);
-        stage = (Stage)transactionList.getScene().getWindow();
+        stage = (Stage)listView.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToPropertiesCredit(credit credit) throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("creditProperties.fxml"));
+        root=loader.load();
+        creditPropertiesController creditPropertiesController = loader.getController();
+        creditPropertiesController.init(credit, false);
+        stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -204,7 +284,7 @@ public class userController {
         root=loader.load();
         transferController transferController = loader.getController();
         transferController.init();
-        stage = (Stage)transactionList.getScene().getWindow();
+        stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -215,7 +295,7 @@ public class userController {
         root=loader.load();
         creditController creditController = loader.getController();
         creditController.init();
-        stage = (Stage)transactionList.getScene().getWindow();
+        stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -226,7 +306,7 @@ public class userController {
         root=loader.load();
         creditworthinessController creditworthinessController = loader.getController();
         creditworthinessController.init();
-        stage = (Stage)transactionList.getScene().getWindow();
+        stage = (Stage)listView.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

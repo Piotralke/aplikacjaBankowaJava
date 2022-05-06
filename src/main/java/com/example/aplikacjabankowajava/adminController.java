@@ -3,6 +3,7 @@ package com.example.aplikacjabankowajava;
 import http.TableA;
 import javafx.event.ActionEvent;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -25,30 +26,12 @@ public class adminController {
         stage.setScene(scene);
         stage.show();
     }
-    public void show()
-    {
-        try {
-            ArrayOfExchangeRatesTable arrayERT = new TableA().currentTable();
 
-            for (int i = 0; i < arrayERT.getExchangeRatesTables().size(); i++) {
-                System.out.println(arrayERT.getExchangeRatesTables().get(i).getTable());
-                System.out.println(arrayERT.getExchangeRatesTables().get(i).getNo());
-                System.out.println(arrayERT.getExchangeRatesTables().get(i).getEffectiveDate());
-                for (int j = 0; j < arrayERT.getExchangeRatesTables().get(i).getRates().size(); j++) {
-                    System.out.println(
-                            // applies to archive exchange rates, it could return null value
-                            arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCountry() + " - " +
-                                    // applies to archive exchange rates, it could return null value
-                                    arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getSymbol() + " - " +
-                                    arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCurrency() + " - " +
-                                    arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getCode() + " - " +
-                                    arrayERT.getExchangeRatesTables().get(i).getRates().get(j).getMid());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    private void deleteUser(){
+
     }
+
     public void switchToList(ActionEvent event) throws IOException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("userList.fxml"));
         root=loader.load();

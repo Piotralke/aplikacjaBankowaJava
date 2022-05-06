@@ -60,6 +60,11 @@ public class changeController {
                     countryChoice.getItems().add(countryArray[j]);
                 }
                 countryChoice.setValue(tempList.get(i).getCountry());
+                if(!tempList.get(i).getCreditList().isEmpty()){
+                    if((tempList.get(i).getCreditList().get(0).getStatus().equals("Oczekujący")) || (tempList.get(i).getCreditList().get(0).getStatus().equals("Zaakceptowany"))){
+                        countryChoice.setDisable(true);
+                    }
+                }
                 datePicker.setValue(tempList.get(i).getBirthday());
                 //countryChoice.setDisable(true);
                 break;

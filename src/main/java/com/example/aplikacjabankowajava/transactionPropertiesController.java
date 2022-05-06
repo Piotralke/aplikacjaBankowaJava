@@ -38,7 +38,6 @@ public class transactionPropertiesController {
     @FXML
     private Label typeLabel;
 
-
     public void init(transaction transaction){
         transactionNumberText.setText("Transakcja nr. "+transaction.getNumber());
         titleText.setText("Tytuł transakcji:\n"+transaction.getTitle());
@@ -61,9 +60,14 @@ public class transactionPropertiesController {
         {
             senderAcc.setText("Nr konta nadawcy\n"+transaction.getFirstAcc().toString());
         }
-
-        receiverAcc.setText("Nr konta odbiorcy\n"+transaction.getSecondAcc().toString());
-
+        if(transaction.getSecondAcc()==null)
+        {
+            receiverAcc.setText("");
+        }
+        else
+        {
+            receiverAcc.setText("Nr konta odbiorcy\n"+transaction.getSecondAcc().toString());
+        }
     }
     @FXML
     protected void goBack(ActionEvent event) throws IOException, ClassNotFoundException {

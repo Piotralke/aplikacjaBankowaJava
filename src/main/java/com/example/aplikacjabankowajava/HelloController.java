@@ -49,11 +49,11 @@ public class HelloController {
                 {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("panelUser.fxml"));
                     root=loader.load();
+                    serialization.serializeString("exit.txt","user");
+                    serialization.serializeString("login.txt",tempList.get(i).getLogin().toString());
                     userController userController = loader.getController();
                     userController.initUser(tempList.get(i),i);
                     userController.initList(tempList.get(i));
-                    serialization.serializeString("exit.txt","user");
-                    serialization.serializeString("login.txt",tempList.get(i).getLogin().toString());
                 }
 
                 switchToScene2(event);

@@ -2,6 +2,7 @@ package com.example.aplikacjabankowajava;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 
@@ -22,6 +23,9 @@ public class credit implements Serializable{
     private String currency;
     private String name;
     private String surname;
+    private Float creditSum;
+    private int remainingInstalments;
+    private LocalDate nextPayment;
 
 
     public credit(String purpose, Float amount, int period, int day, Float earnings, int people, Float expenses, int age, Long numAcc, String currency, String name, String surname) {
@@ -41,6 +45,8 @@ public class credit implements Serializable{
         this.currency = currency;
         this.name = name;
         this.surname = surname;
+        this.creditSum = this.instalment*this.period;
+        this.remainingInstalments = this.period;
     }
 
     private String generateDate()
@@ -183,5 +189,29 @@ public class credit implements Serializable{
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public Float getCreditSum() {
+        return creditSum;
+    }
+
+    public void setCreditSum(Float creditSum) {
+        this.creditSum = creditSum;
+    }
+
+    public int getRemainingInstalments() {
+        return remainingInstalments;
+    }
+
+    public void setRemainingInstalments(int remainingInstalments) {
+        this.remainingInstalments = remainingInstalments;
+    }
+
+    public LocalDate getNextPayment() {
+        return nextPayment;
+    }
+
+    public void setNextPayment(LocalDate nextPayment) {
+        this.nextPayment = nextPayment;
     }
 }
