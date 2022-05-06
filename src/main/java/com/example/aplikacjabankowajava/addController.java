@@ -8,13 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.testng.annotations.IDataProviderAnnotation;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class addController {
 
@@ -37,6 +37,12 @@ public class addController {
     private DatePicker datePicker;
     @FXML
     private Button button;
+    private boolean checkLogin;
+    private boolean checkName;
+    private boolean checkSurname;
+    private boolean checkAge;
+    private boolean checkPassword;
+
 
     @FXML
     protected void goBack(ActionEvent event) throws IOException {
@@ -57,18 +63,11 @@ public class addController {
         tempList = new ArrayList<>();
     }
 
+    private void check(){
+        button.setDisable(!checkName || !checkAge || !checkLogin || !checkSurname || !checkPassword);
+    }
     public void init(boolean manager) throws IOException, ClassNotFoundException {
-        datePicker.getEditor().textProperty().addListener(observable ->{
-            if(datePicker.getValue().isBefore(LocalDate.now().minus(18, ChronoUnit.YEARS)))
-                button.setDisable(false);
-            else
-                button.setDisable(true);
-        });
-
-        button.setDisable(true);
-        if(manager)
-            isadmin.setVisible(true);
-        datePicker.setValue(LocalDate.now());
+        checkLogin=true;
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         Random rand = new Random();
         Long tempL = 10000000+rand.nextLong(89999999);
@@ -78,8 +77,38 @@ public class addController {
                 i=0;
             }
         }
-        tempList = new ArrayList<>();
         login.setText(tempL.toString());
+        datePicker.getEditor().textProperty().addListener(observable ->{
+            if(datePicker.getValue().isBefore(LocalDate.now().minus(18, ChronoUnit.YEARS)))
+                checkAge=true;
+            else if(datePicker.getValue().isBefore(LocalDate.now().minus(100, ChronoUnit.YEARS)))
+                checkAge=false;
+            else
+                checkAge=false;
+            check();
+        });
+        login.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkLogin= newValue.length() == 8;
+            check();
+        });
+        login.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkPassword= !newValue.trim().isEmpty();
+            check();
+        });
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkName=!newValue.trim().isEmpty();
+            check();
+        });
+        surname.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkSurname=!newValue.trim().isEmpty();
+            check();
+        });
+
+        button.setDisable(true);
+        if(manager)
+            isadmin.setVisible(true);
+        datePicker.setValue(LocalDate.now());
+
         String passwordT = new Random().ints(10, 33, 122).collect(StringBuilder::new,
                         StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
