@@ -8,8 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.testng.internal.collections.Pair;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class transferController {
     private TextField amountText;
     @FXML
     private Button transferButton;
+    @FXML
+    private ListView contactView;
     private boolean checkName;
     private boolean checkNumAcc;
     private boolean checkTitle;
@@ -39,12 +43,28 @@ public class transferController {
     public void init() throws IOException, ClassNotFoundException {
         ArrayList<user> tempList = serialization.deserializeUserList("data.txt");
         Long loginT = Long.valueOf(serialization.deserializeString("login.txt"));
+        Float balanceT = 0.0f;
         for(int i=0;i<tempList.size();i++){
             if(loginT.equals(tempList.get(i).getLogin())) {
                 ballanceLabel.setText("Twój stan konta:\n"+String.format("%.02f",tempList.get(i).getBalance())+tempList.get(i).getCurrency());
+                if(!tempList.get(i).getContactList().isEmpty()){
+                    for(int j=0;j<tempList.get(i).getContactList().size();j++){
+                        contactView.getItems().add(tempList.get(i).getContactList().get(j).first()+"\t"+tempList.get(i).getContactList().get(j).second());
+                    }
+                }
+                balanceT=tempList.get(i).getBalance();
                 break;
             }
         }
+        contactView.setOnMouseClicked(event -> {
+            if(event.getClickCount()==2)
+            {
+                numAccText.setText(contactView.getSelectionModel().getSelectedItem().toString().substring(0,15));
+                nameText.setText(contactView.getSelectionModel().getSelectedItem().toString().substring(17));
+                nameText.setDisable(true);
+                numAccText.setDisable(true);
+            }
+        });
         transferButton.setDisable(true);
         numAccText.textProperty().addListener((observable, oldValue, newValue) -> {
             checkNumAcc= newValue.length() == 14;
@@ -58,11 +78,15 @@ public class transferController {
             checkTitle=!newValue.trim().isEmpty();
             check();
         });
+        Float finalBalanceT = balanceT;
         amountText.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()){
                 checkAmount= Float.parseFloat(newValue) > 0.0f;
-            }else
+            }else if(Float.valueOf(newValue)> finalBalanceT){
+                checkAmount=true;
+            }else{
                 checkAmount=false;
+            }
             check();
         });
     }
@@ -85,7 +109,19 @@ public class transferController {
         ArrayList<transaction> tempTransList = tempList.get(i).getTransacionList();
         tempTransList.add(0,newT);
         tempList.get(i).setTransacionList(tempTransList);
-
+        boolean userIsOnList = false;
+        if(!tempList.get(i).getContactList().isEmpty()){
+            for(int k=0;k<tempList.get(i).getContactList().size();k++){
+                if(tempList.get(i).getContactList().get(k).first()==Long.valueOf(numAccText.getText())){
+                    userIsOnList=true;
+                    break;
+                }
+            }
+        }
+        if(!userIsOnList){
+            Pair<Long,String> tempP = new Pair(Long.valueOf(numAccText.getText()),nameText.getText());
+            tempList.get(i).getContactList().add(tempP);
+        }
         ballanceLabel.setText("Twój stan konta:\n"+tempList.get(i).getBalance().toString()+tempList.get(i).getCurrency());
         int j;
         for(j=0;j<tempList.size();j++){

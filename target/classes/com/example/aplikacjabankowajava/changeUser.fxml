@@ -27,9 +27,9 @@
                   <Label layoutX="17.0" layoutY="158.0" text="Państwo:(waluta)" />
                   <Label layoutX="253.0" layoutY="98.0" text="Nazwisko:" />
                   <ChoiceBox fx:id="countryChoice" layoutX="14.0" layoutY="175.0" prefWidth="150.0" />
-                  <Button layoutX="376.0" layoutY="331.0" mnemonicParsing="false" onAction="#changeUser" text="Zmień" />
+                  <DatePicker fx:id="datePicker" disable="true" layoutX="253.0" layoutY="175.0" />
                   <CheckBox fx:id="isadmin" layoutX="184.0" layoutY="258.0" mnemonicParsing="false" text="Czy pracownik banku?" visible="false" />
-                  <DatePicker fx:id="datePicker" layoutX="253.0" layoutY="175.0" />
+                  <Button layoutX="376.0" layoutY="331.0" mnemonicParsing="false" onAction="#changeUser" text="Zmień" />
                   <Label layoutX="256.0" layoutY="158.0" text="Data urodzenia" />
                </children>
             </AnchorPane>

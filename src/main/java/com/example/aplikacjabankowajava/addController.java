@@ -88,5 +88,6 @@ public class addController {
         for(int i=0; i<countryArray.length;i++) {
             countryChoice.getItems().add(countryArray[i]);
         }
+        countryChoice.setValue("Polska");
     }
 }

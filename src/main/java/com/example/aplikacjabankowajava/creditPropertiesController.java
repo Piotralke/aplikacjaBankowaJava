@@ -105,7 +105,7 @@ public class creditPropertiesController {
         creditNumberText.setText("Kredyt: " + credit.getNumber());
         nameText.setText("Imię i nazwisko, wiek:\n" + credit.getName() + " " + credit.getSurname() + "," + credit.getAge());
         amountText.setText("Kwota kredytu:\n" +String.format("%.02f",credit.getAmount()) +credit.getCurrency());
-        instalmentText.setText("Wysokość raty:\n" + credit.getInstalment()+credit.getCurrency());
+        instalmentText.setText("Wysokość raty:\n" +String.format("%.02f",credit.getInstalment()) +credit.getCurrency());
         dateText.setText("Data zawarcia:\n" + credit.getDate());
         purposeText.setText("Przeznaczenie:\n" + credit.getPurpose());
         interestText.setText("Oprocentowanie:\n6.9%");

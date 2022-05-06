@@ -29,15 +29,15 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
         countryHashMap.init();
-        //ArrayList<user> userArrayList = new ArrayList<>();
-        //user admin = new user("admin","admin",12345678l,"admin",true,"Polska",true,LocalDate.parse("2000-12-10") );
-        //user admin2 = new user("admin2","admin2",12345679l,"admin2",true,"Niemcy",false,LocalDate.parse("2000-12-10"));
-        //user user1 = new user("Michal","Mlodawski",69696969l,"java",false,"Stany Zjednoczone",false,LocalDate.parse("2000-12-10"));
-        //user1.setBalance(2137.0f);
-        //userArrayList.add(admin);
-        //userArrayList.add(admin2);
-        //userArrayList.add(user1);
-        //serialization.serializeUserList("data.txt",userArrayList);
+        ArrayList<user> userArrayList = new ArrayList<>();
+        user admin = new user("Jan","Dyrduł",12345678l,"admin",true,"Polska",true,LocalDate.parse("2000-11-04") );
+        user admin2 = new user("Piotr","Dziewięcki",87654321l,"admin2",true,"Polska",true,LocalDate.parse("2002-01-22"));
+        user user1 = new user("Michal","Mlodawski",13372115l,"java",false,"Stany Zjednoczone",false,LocalDate.parse("2000-12-10"));
+        user1.setBalance(2137.0f);
+        userArrayList.add(admin);
+        userArrayList.add(admin2);
+        userArrayList.add(user1);
+        serialization.serializeUserList("data.txt",userArrayList);
     }
 
     public static void main(String[] args) {
