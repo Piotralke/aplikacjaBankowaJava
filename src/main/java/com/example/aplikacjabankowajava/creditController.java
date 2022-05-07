@@ -73,7 +73,7 @@ public class creditController {
                     }
                 }
                 if(!newValue.trim().isEmpty()){
-                    checkAmount = Float.valueOf(newValue)>0.0f && currencyConverter.convertCurrency(Float.valueOf(newValue),userList.get(j).getCurrency(),"PLN")<10000000.0f;
+                    checkAmount = Float.valueOf(newValue)>0.0f && currencyConverter.convertCurrency(Float.valueOf(newValue),"PLN",userList.get(j).getCurrency())<10000000.0f;
                 } else
                     checkAmount=false;
                 check();
